@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 
 const createError = require("http-errors");
@@ -9,6 +10,7 @@ const { requestTime } = require("./middleware/request-time");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const rootRoutes = require("./routes/root");
+const testRoutes = require("./routes/test/index.js");
 
 if (process.env.NODE_ENV === "development") {
   const livereload = require("livereload");
@@ -30,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "static")));
 app.use("/", rootRoutes);
+app.use("/test", testRoutes);
 app.use((_request, _response, next) => {
   next(createError(404));
 });
