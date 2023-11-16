@@ -9,8 +9,6 @@ const { requestTime } = require("./middleware/request-time");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const rootRoutes = require("./routes/root");
-const testRoutes = require("./routes/test/index.js");
 
 if (process.env.NODE_ENV === "development") {
   const livereload = require("livereload");
@@ -27,18 +25,29 @@ if (process.env.NODE_ENV === "development") {
   app.use(connectLiveReload());
 }
 
+const landingRoutes = require("./routes/landing");
+const lobbyRoutes = require("./routes/lobby");
+const gameRoutes = require("./routes/game");
+const authRoutes = require("./routes/authentication");
+// const testRoutes = require("./routes/test/index"); 
+
+app.use("/", landingRoutes);
+app.use("/lobby", lobbyRoutes);
+app.use("/game", gameRoutes);
+app.use("/auth", authRoutes);
+// app.use("/test", testRoutes);
+
+app.use((_request, _response, next) => {
+  next(createError(404));
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "static")));
-app.use("/", rootRoutes);
-app.use("/test", testRoutes);
-app.use((_request, _response, next) => {
-  next(createError(404));
-});
+
 app.use(requestTime);
 app.use(morgan("dev"));
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
