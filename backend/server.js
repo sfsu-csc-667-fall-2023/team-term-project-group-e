@@ -46,6 +46,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "static")));
 
+console.log(path.join(__dirname, "static"));
+
 app.use(requestTime);
 app.use(morgan("dev"));
 app.set("views", path.join(__dirname, "views"));
