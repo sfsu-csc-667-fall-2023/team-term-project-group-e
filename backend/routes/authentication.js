@@ -4,7 +4,7 @@ const router = express.Router();
 
 const SALT_ROUNDS = 10;
 
-const { Users } = require("../db");
+const { users } = require("../db");
 
 router.get("/", (_request, response) => {
   response.render("sign_up");
@@ -13,7 +13,7 @@ router.get("/", (_request, response) => {
 router.post("/register", async (request, response) => {
   const {email, password} = request.body;
 
-  const user_exists = await Users.email_exists(email);
+  const user_exists = await users.email_exists(email);
   if(user_exists){
     response.redirect("/");
     return;
@@ -22,11 +22,10 @@ router.post("/register", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const { id } = Users.create(email, hash);
+  const { id } = users.create(email, hash);
 
   request.session.user = {
-    id: user.id,
-    email
+    id, email
   }
   response.redirect("/lobby");
 });
@@ -35,29 +34,29 @@ router.post("/login", async (request, response) => {
   const {email, password} = request.body;
 
   try {
-    const user = await Users.find_by_email(email);
+    const user = await users.find_by_email(email);
     const isValidUser = await bcrypt.compare(password, user.password);
 
     if(isValidUser){
       request.session.user = {
         id: user.id,
         email
-      }
-
-      console.log({ user, session: request.session })
-    
+      }    
       response.redirect("/lobby");
       return;
     } else {
       response.render("landing", {error: "The credentials you supplied are invalid."});
-      // response.redirect("/");
       return;
     }
   } catch(error) {
     console.log(error);
-    response.redirect("/");
+    response.render("landing", {error: "The credentials you supplied are invalid."});
   }
-  
+});
+
+router.get("/logout", (request, response) => {
+  request.session.destroy();
+  response.redirect("/");
 });
 
 

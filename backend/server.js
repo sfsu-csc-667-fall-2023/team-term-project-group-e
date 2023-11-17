@@ -1,17 +1,16 @@
 const path = require("path");
+
 const express = require("express");
 const createError = require("http-errors");
+const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const { viewSessionData } = require("./middleware/view-session");
-const morgan = require("morgan");
-// const { requestTime } = require("./middleware/request-time");
+const { viewSessionData, sessionLocals, isAuthenticated, requestTime} = require("./middleware");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// app.use(requestTime);
+app.use(requestTime);
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -23,6 +22,8 @@ app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "static")));
+
+const PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV === "development") {
   require("dotenv").config();
@@ -41,27 +42,27 @@ if (process.env.NODE_ENV === "development") {
   app.use(connectLiveReload());
 }
 
-app.use(session({
+const sessionMiddleware = {
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
   cookie: { secure: process.env.NODE_ENV !== "development" }
-}));
+}
+
+app.use(session(sessionMiddleware));
+
 if(process.env.NODE_ENV === "development"){
   app.use(viewSessionData);
 }
+app.use(sessionLocals)
 
-const landingRoutes = require("./routes/landing");
-const lobbyRoutes = require("./routes/lobby");
-const gameRoutes = require("./routes/game");
-const authRoutes = require("./routes/authentication");
-// const testRoutes = require("./routes/test/index"); 
-
-app.use("/", landingRoutes);
-app.use("/lobby", lobbyRoutes);
-app.use("/game", gameRoutes);
-app.use("/auth", authRoutes);
-// app.use("/test", testRoutes);
+const Routes= require("./routes");
+app.use("/", Routes.landing);
+app.use("/auth", Routes.authentication);
+app.use("/lobby", isAuthenticated, Routes.lobby);
+app.use("/game", isAuthenticated, Routes.game);
 
 app.use((_request, _response, next) => {
   next(createError(404));
