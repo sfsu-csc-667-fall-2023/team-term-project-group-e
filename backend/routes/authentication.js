@@ -24,8 +24,10 @@ router.post("/register", async (request, response) => {
 
   const { id } = Users.create(email, hash);
 
-  // TODO: Store in session
-
+  request.session.user = {
+    id: user.id,
+    email
+  }
   response.redirect("/lobby");
 });
 
@@ -37,8 +39,13 @@ router.post("/login", async (request, response) => {
     const isValidUser = await bcrypt.compare(password, user.password);
 
     if(isValidUser){
-      // TODO: Store in session
+      request.session.user = {
+        id: user.id,
+        email
+      }
 
+      console.log({ user, session: request.session })
+    
       response.redirect("/lobby");
       return;
     } else {

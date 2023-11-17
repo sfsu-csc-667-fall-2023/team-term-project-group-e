@@ -1,18 +1,32 @@
-require("dotenv").config();
-
 const path = require("path");
-
 const express = require("express");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const { viewSessionData } = require("./middleware/view-session");
 const morgan = require("morgan");
-const { requestTime } = require("./middleware/request-time");
+// const { requestTime } = require("./middleware/request-time");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// app.use(requestTime);
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "static")));
+
 if (process.env.NODE_ENV === "development") {
+  require("dotenv").config();
+
   const livereload = require("livereload");
   const connectLiveReload = require("connect-livereload");
 
@@ -27,18 +41,15 @@ if (process.env.NODE_ENV === "development") {
   app.use(connectLiveReload());
 }
 
-app.use(requestTime);
-app.use(morgan("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV !== "development" }
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "static")));
+if(process.env.NODE_ENV === "development"){
+  app.use(viewSessionData);
+}
 
 const landingRoutes = require("./routes/landing");
 const lobbyRoutes = require("./routes/lobby");
