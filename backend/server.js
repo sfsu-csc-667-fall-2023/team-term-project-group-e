@@ -1,9 +1,11 @@
 require("dotenv").config();
-const express = require("express");
 
-const createError = require("http-errors");
 const path = require("path");
+
+const express = require("express");
+const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const { requestTime } = require("./middleware/request-time");
 
@@ -25,12 +27,15 @@ if (process.env.NODE_ENV === "development") {
   app.use(connectLiveReload());
 }
 
+app.use(requestTime);
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.use(requestTime);
-app.use(morgan("dev"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "static")));
