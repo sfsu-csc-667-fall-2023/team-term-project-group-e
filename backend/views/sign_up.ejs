@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sign Up</title>
+  <%- include("partials/navbar"); %>
+</head>
+
+<body>
+  <p>This is the page for sign up.</p>
+
+  <form method="post" action="/auth/register">
+    <legend>Sign Up</legend>
+    <label>Email:</Label><br>
+    <input name="email" type="email" placeholder="Email"><br>
+    <label>Password:</label><br>
+    <input name="password" type="password" placeholder="Password"><br>
+    <input type="submit" value="Register">
+  </form>
+
+</body>
+
+</html>
