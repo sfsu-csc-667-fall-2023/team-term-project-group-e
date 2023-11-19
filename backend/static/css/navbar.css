@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  border-radius: 5px;
+  background-color: lightblue;
+}
+
+.navbar-title {
+  margin: 1em;
+}
+
+.navbar-link-container {
+  display: flex;
+}
+
+.navbar-link {
+  margin: auto 1em auto 1em;
+}

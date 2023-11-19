@@ -3,23 +3,25 @@
 
 <head>
   <title>Landing Page</title>
-  <%- include("partials/navbar"); %>
 </head>
 
 <body>
-  <p>This is the landing page.
-  </p>
+  <main>
+    <%- include("partials/navbar"); %>
+      <p>This is the landing page.
+      </p>
 
-  <form method="POST" action="/auth/login">
-    <legend>Login</legend>
-    <label>Email:</Label><br>
-    <input name="email" type="email" placeholder="Email"><br>
-    <label>Password:</label><br>
-    <input name="password" type="password" placeholder="Password"><br>
-    <input type="submit" value="Login">
-  </form>
+      <form method="POST" action="/auth/login">
+        <legend>Login</legend>
+        <label>Email:</Label><br>
+        <input name="email" type="email" placeholder="Email"><br>
+        <label>Password:</label><br>
+        <input name="password" type="password" placeholder="Password"><br>
+        <input type="submit" value="Login">
+      </form>
 
-  <a href="game/42">Game 42</a><br>
+      <a href="game/42">Game 42</a><br>
+  </main>
 </body>
 
 </html>
