@@ -1,0 +1,27 @@
+.message {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 2px;
+  width: 90%;
+}
+
+.message-avatar {
+  margin-right: 5px;
+}
+
+.user {
+  background-color: lightblue;
+  float: right;
+}
+
+.not-user {
+  background-color: lightgray;
+  float: left;
+}
+
+.input-message {
+  margin: 5px 2px;
+  width: 90%;
+}

@@ -1,4 +1,5 @@
 const path = require("path");
+const { createServer } = require("http");
 
 const express = require("express");
 const createError = require("http-errors");
@@ -6,11 +7,17 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const { viewSessionData, sessionLocals, isAuthenticated, requestTime} = require("./middleware");
+const { Server } = require("socket.io");
+
+const { 
+  viewSessionData, 
+  sessionLocals, 
+  isAuthenticated
+} = require("./middleware");
 
 const app = express();
+const httpServer = createServer(app);
 
-app.use(requestTime);
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -42,32 +49,42 @@ if (process.env.NODE_ENV === "development") {
   app.use(connectLiveReload());
 }
 
-const sessionMiddleware = {
+const sessionMiddleware = session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
   }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: { secure: process.env.NODE_ENV !== "development" }
-}
+});
 
-app.use(session(sessionMiddleware));
+app.use(sessionMiddleware);
 
 if(process.env.NODE_ENV === "development"){
   app.use(viewSessionData);
 }
-app.use(sessionLocals)
 
-const Routes= require("./routes");
+app.use(sessionLocals)
+const io = new Server(httpServer);
+io.engine.use(sessionMiddleware);
+app.set("io", io);
+
+io.on("connection", socket => {
+  socket.join(socket.request.session.id);
+});
+
+const Routes = require("./routes");
+
 app.use("/", Routes.landing);
 app.use("/auth", Routes.authentication);
 app.use("/lobby", isAuthenticated, Routes.lobby);
 app.use("/game", isAuthenticated, Routes.game);
+app.use("/chat", isAuthenticated, Routes.chat);
 
 app.use((_request, _response, next) => {
   next(createError(404));
 });
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
