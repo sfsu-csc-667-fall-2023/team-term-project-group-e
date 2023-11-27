@@ -6,6 +6,7 @@
 <head>
   <title>Lobby</title>
   <script src="/scripts/chat.js" defer></script>
+  <script src="/scripts/lobby.js" defer></script>
 </head>
 
 <body>
@@ -20,8 +21,25 @@
       <div class="flexbox">
         <div class="column games-column">
           <h2>Available Games</h2>
-          <a href="game/42">Game 42</a><br>
+          <section id="game-list">
+            <ul>
+              <% availableGames.forEach((game)=> { %>
+                <li>
+                  <a href="/game/<%= game.id %>/join">Join <%= game.id%></a>
+                </li>
+                <% }); %>
+            </ul>
+          </section>
 
+          <template id="join-game-entry">
+            <li>
+              <a href=""></a>
+            </li>
+          </template>
+
+          <form action="/game/create" method="get">
+            <button type="submit">Create New Game</button>
+          </form>
         </div>
         <div class="column">
           <%- include("partials/chat", {roomId: 0}) %>

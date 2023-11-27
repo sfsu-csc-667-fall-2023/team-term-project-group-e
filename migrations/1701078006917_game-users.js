@@ -6,16 +6,12 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm 
  */
 exports.up = pgm => {
-  pgm.createTable("test_table", {
-    id: "id",
-    created_at: {
-      type: "timestamp",
-      notNull: true,
-      default: pgm.func("current_timestamp"),
+  pgm.createTable("game_users", {
+    user_id: {
+      type: "int"
     },
-    test_string: {
-      type: "varchar(1000)",
-      notNull: true,
+    game_id: {
+      type: "int"
     }
   });
 };
@@ -24,5 +20,5 @@ exports.up = pgm => {
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm 
  */
 exports.down = pgm => {
-  pgm.dropTable("test_table");
+  pgm.dropTable("game_users");
 };
