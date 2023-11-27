@@ -14,7 +14,8 @@
     <p>
       <%= user.id %>:<%= user.email %>
     </p><br>
-    <a href="/lobby">Back to Lobby</a>
+    <%- include("partials/chat", { roomId: id }); %>
+      <a href="/lobby">Back to Lobby</a>
   </main>
 
 </body>

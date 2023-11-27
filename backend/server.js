@@ -77,9 +77,8 @@ const Routes = require("./routes");
 
 app.use("/", Routes.landing);
 app.use("/auth", Routes.authentication);
-app.use("/lobby", isAuthenticated, Routes.lobby);
-app.use("/game", isAuthenticated, Routes.game);
-app.use("/chat", isAuthenticated, Routes.chat);
+app.use("/lobby", isAuthenticated, Routes.lobby, Routes.chat);
+app.use("/game", isAuthenticated, Routes.game, Routes.chat);
 
 app.use((_request, _response, next) => {
   next(createError(404));

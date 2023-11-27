@@ -4,7 +4,9 @@ const chatWindow = document.querySelector("#chat-window");
 
 const chatSocket = io();
 
-chatSocket.on("chat:message:0", ({ from, timestamp, message, hash}) => {
+const roomId = document.querySelector("#room-id").value;
+
+chatSocket.on(`chat:message:${roomId}`, ({ from, timestamp, message, hash}) => {
   const div = document.querySelector("#message-template").content.cloneNode(true);
 
   const img = div.querySelector("img");
@@ -23,7 +25,7 @@ document.querySelector("#message").addEventListener("keydown", event => {
     const message = event.target.value;
     const url = event.target.dataset.url;
 
-    fetch(url, { 
+    fetch(`${document.location.pathname}/chat`, { 
       method: "post", 
       headers: { "Content-Type": "application/json"}, 
       body: JSON.stringify({ message })
