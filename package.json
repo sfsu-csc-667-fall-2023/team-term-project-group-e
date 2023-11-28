@@ -16,6 +16,9 @@
     "db:rollback": "node-pg-migrate down",
     "postinstall": "npm run db:migrate"
   },
+  "engines": {
+    "node": ">=15.0.0"
+  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "frontend/**/*.js": "webpack"
