@@ -4,16 +4,19 @@
 <head>
   <title>Game <%=id%>
   </title>
+  <script src="/scripts/chat.js" defer></script>
+  <script src="/scripts/games.js" defer></script>
+
 </head>
 
 <body>
   <main>
     <p>This is the page for game <%=id%>
-    </p><br>
-    <p>
-      <%= user.id %>:<%= user.email %>
-    </p><br>
-    <a href="/">Back to Landing</a>
+    </p>
+    <input type="hidden" name="game-socket-id" id="game-socket-id" value="<%= gameSocketId %>" />
+
+    <%- include("partials/chat", { roomId: id }); %>
+      <a href="/lobby">Back to Lobby</a>
   </main>
 
 </body>
