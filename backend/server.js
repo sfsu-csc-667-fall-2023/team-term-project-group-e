@@ -80,7 +80,7 @@ io.on("connection", socket => {
 
 const Routes = require("./routes");
 
-app.use("/", Routes.landing);
+app.use("/", Routes.home);
 app.use("/auth", Routes.authentication);
 app.use("/lobby", isAuthenticated, Routes.lobby, Routes.chat);
 app.use("/game", isAuthenticated, Routes.game, Routes.chat);

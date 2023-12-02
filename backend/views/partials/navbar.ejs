@@ -4,7 +4,7 @@
   <p class="navbar-title">UNO</p>
   <div class="navbar-link-container">
     <div class="navbar-link">
-      <a href="/">Landing</a>
+      <a href="/">Home</a>
     </div>
     <div class="navbar-link">
       <a href="/lobby">Lobby</a>
@@ -12,8 +12,17 @@
     <div class="navbar-link">
       <a href="/auth">Sign Up</a>
     </div>
-    <div class="navbar-link">
-      <a href="/auth/logout">Log out</a>
-    </div>
+    <% if(user !==undefined){%>
+      <div class="navbar-link">
+        <a href="/auth/logout">Log out</a>
+      </div>
+      <% } %>
   </div>
+  <% if(user !==undefined){ %>
+    <div class="navbar-name">
+      <p>
+        <%=user.username%>
+      </p>
+    </div>
+    <% } %>
 </div>

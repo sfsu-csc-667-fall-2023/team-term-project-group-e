@@ -15,3 +15,8 @@
 .navbar-link {
   margin: auto 1em auto 1em;
 }
+
+.navbar-name {
+  margin-left: auto;
+  margin-right: 1em;
+}

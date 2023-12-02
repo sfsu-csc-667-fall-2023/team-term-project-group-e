@@ -11,7 +11,7 @@ router.get("/", (_request, response) => {
 });
 
 router.post("/register", async (request, response) => {
-  const {email, password} = request.body;
+  const {email, username, password} = request.body;
 
   const user_exists = await users.email_exists(email);
   if(user_exists){
@@ -22,10 +22,10 @@ router.post("/register", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const { id } = users.create(email, hash);
+  const { id } = users.create(email, username, hash);
 
   request.session.user = {
-    id, email
+    id, username, email
   }
   response.redirect("/lobby");
 });
@@ -40,17 +40,18 @@ router.post("/login", async (request, response) => {
     if(isValidUser){
       request.session.user = {
         id: user.id,
+        username: user.username,
         email
       }    
       response.redirect("/lobby");
       return;
     } else {
-      response.render("landing", {error: "The credentials you supplied are invalid."});
+      response.render("home", {error: "The credentials you supplied are invalid."});
       return;
     }
   } catch(error) {
     console.log(error);
-    response.render("landing", {error: "The credentials you supplied are invalid."});
+    response.render("home", {error: "The credentials you supplied are invalid."});
   }
 });
 

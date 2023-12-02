@@ -1,9 +1,9 @@
 const authentication = require("./authentication");
 const game = require("./game");
-const landing = require("./landing");
+const home = require("./home");
 const lobby = require("./lobby");
 const chat = require("./chat");
 
 module.exports = {
-  authentication, game, landing, lobby, chat
+  authentication, game, home, lobby, chat
 }
