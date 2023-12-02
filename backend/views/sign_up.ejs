@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<link href="/css/signup.css" rel="stylesheet" type="text/css">
 <html>
 
 <head>
@@ -8,10 +9,10 @@
 <body>
   <main>
     <%- include("partials/navbar"); %>
-      <p>Sign Up</p>
+      <p class="welcome-text">Register here:</p>
 
-      <form method="post" action="/auth/register">
-        <legend>Sign Up</legend>
+      <form class="signup-form" method="post" action="/auth/register">
+        <legend>Sign Up Form</legend>
         <label>Email:</Label><br>
         <input name="email" type="email" placeholder="Email"><br>
         <label>Username:</Label><br>

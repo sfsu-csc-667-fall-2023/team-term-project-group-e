@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<link href="/css/home.css" rel="stylesheet" type="text/css">
+
 <html>
 
 <head>
@@ -8,11 +10,11 @@
 <body>
   <main>
     <%- include("partials/navbar"); %>
-      <p>Home Page. Login here:
+      <p class="welcome-text">Welcome to Uno! Login here:
       </p>
 
-      <form method="POST" action="/auth/login">
-        <legend>Login</legend>
+      <form class="login-form" method="POST" action="/auth/login">
+        <legend>Login Form</legend>
         <label>Email:</Label><br>
         <input name="email" type="email" placeholder="Email"><br>
         <label>Password:</label><br>
