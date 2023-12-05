@@ -24,3 +24,13 @@ label,
 input {
   margin: 5px;
 }
+
+.error {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  color: red;
+  background: rgb(102, 102, 102);
+  padding: 5px;
+  border-radius: 5px;
+}

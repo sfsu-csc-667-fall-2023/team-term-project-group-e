@@ -51,7 +51,7 @@ router.post("/login", async (request, response) => {
     }
   } catch(error) {
     console.log(error);
-    response.render("home", {error: "The credentials you supplied are invalid."});
+    response.render("home", {error: "Something went wrong during log in."});
   }
 });
 

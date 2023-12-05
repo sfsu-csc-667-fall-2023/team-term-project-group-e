@@ -21,6 +21,12 @@
         <input name="password" type="password" placeholder="Password"><br>
         <input type="submit" value="Login">
       </form>
+
+      <% if (error !==undefined){ %>
+        <p class="error">
+          <%= error %>
+        </p>
+        <% }%>
   </main>
 </body>
 
