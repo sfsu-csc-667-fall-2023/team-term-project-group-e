@@ -34,7 +34,9 @@ router.post("/login", async (request, response) => {
   const {email, password} = request.body;
 
   try {
+    console.log("Trying to find email " + email + " in database.");
     const user = await users.find_by_email(email);
+    console.log("User returned from db:" + user);
     const isValidUser = await bcrypt.compare(password, user.password);
 
     if(isValidUser){
