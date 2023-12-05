@@ -36,8 +36,10 @@ router.post("/login", async (request, response) => {
   try {
     console.log("Trying to find email " + email + " in database.");
     const user = await users.find_by_email(email);
-    console.log("User returned from db:" + user);
+    console.log("User returned from db: " + JSON.stringify(user));
     const isValidUser = await bcrypt.compare(password, user.password);
+
+    console.log("Is this a valid user? " + isValidUser);
 
     if(isValidUser){
       request.session.user = {
