@@ -22,7 +22,7 @@ router.post("/register", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const { id } = users.create(email, username, hash);
+  const { id } = await users.create(email, username, hash);
 
   request.session.user = {
     id, username, email
@@ -34,12 +34,8 @@ router.post("/login", async (request, response) => {
   const {email, password} = request.body;
 
   try {
-    console.log("Trying to find email " + email + " in database.");
     const user = await users.find_by_email(email);
-    console.log("User returned from db: " + JSON.stringify(user));
     const isValidUser = await bcrypt.compare(password, user.password);
-
-    console.log("Is this a valid user? " + isValidUser);
 
     if(isValidUser){
       request.session.user = {
@@ -55,7 +51,7 @@ router.post("/login", async (request, response) => {
     }
   } catch(error) {
     console.log(error);
-    response.render("home", {error: "Something went wrong during log in."});
+    response.render("home", {error: "The credentials you supplied are invalid."});
   }
 });
 

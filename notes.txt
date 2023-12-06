@@ -1,0 +1,10 @@
+games
+
+clients send post request --> api sends 200 back (basically ignore response) --> asynchronously update game state over websocket (to keep everyone in sync)
+server single source of truth for the state of the game.
+
+client -----> game ------> sent to everyone else
+
+we are currently hiding the game socket in an input field that is hidden
+
+note: get user socket from user.getusersocket, game socket from getgame

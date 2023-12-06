@@ -6,17 +6,12 @@ exports.shorthands = undefined;
  * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm 
  */
 exports.up = pgm => {
-  pgm.addColumns('users', {
-    username: {
-      type: "varchar(256)",
-      notNull: true,
-      unique: true,
-    }
-  });
+  pgm.addColumn("game_cards", { seat: { type: "int" }});
 };
 
+/**
+ * @param {import("node-pg-migrate/dist/types").MigrationBuilder} pgm 
+ */
 exports.down = pgm => {
-  pgm.removeColumn("users", {
-    username
-  });
+  pgm.dropColumn("game_cards", ["seat"]);
 };

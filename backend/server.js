@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "static")));
 
 const PORT = process.env.PORT || 3000;
   
-// Live reload configuration (for only in development)
+// Live reload configuration
 if (process.env.NODE_ENV === "development") {
   require("dotenv").config();
   
@@ -74,7 +74,7 @@ io.on("connection", socket => {
   socket.join(socket.request.session.id);
 
   if(socket.handshake.query !== undefined){
-    socket.join(socket.handshake.query.gameSocketId);
+    socket.join(socket.handshake.query.id);
   }
 });
 
