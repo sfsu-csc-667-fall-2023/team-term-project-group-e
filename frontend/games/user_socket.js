@@ -5,6 +5,10 @@ let userSocket;
 
 const userSocketConfig = (socketId) => {
   userSocket = io({ query: { id: socketId }});
+
+  userSocket.on("user:hand", data => {
+    console.log({ data });
+  })
 }
 
 export default userSocketConfig;

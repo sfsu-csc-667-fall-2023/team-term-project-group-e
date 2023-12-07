@@ -24,9 +24,20 @@ router.post("/:id/start", async (request, response) => {
 
   const { id: gameId } = request.params;
 
-  const gameState = await Games.initialize(gameId);
+  const firstPlayer = await Games.initialize(gameId);
 
   const io = request.app.get("io");
+
+  const players = await Games.getUsersInGame(gameId);
+
+  players.forEach(async (player) => {
+    let { sid: userSocketId } = await Users.getUserSocket(parseInt(player.user_id));
+    console.log(player.user_id);
+    console.log({ userSocketId });
+    let hand = await Games.getHandOfPlayer(parseInt(player.user_id), gameId); 
+    io.to(userSocketId).emit("user:hand", { hand })
+  })
+
   io.emit(GAME_CONSTANTS.START, {});
 
   response.status(200).send();
