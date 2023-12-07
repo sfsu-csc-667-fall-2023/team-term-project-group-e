@@ -16,4 +16,4 @@ const configure = (socketId) => {
 
 }
 
-export { configure }
+export { configure };

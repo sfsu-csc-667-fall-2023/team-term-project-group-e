@@ -8,3 +8,7 @@ client -----> game ------> sent to everyone else
 we are currently hiding the game socket in an input field that is hidden
 
 note: get user socket from user.getusersocket, game socket from getgame
+
+want appropriate endpoints for each discrete action in the game, they're all basically updating the database in a specific way.
+
+update game state at each endpoint and just rebroadcast game state
