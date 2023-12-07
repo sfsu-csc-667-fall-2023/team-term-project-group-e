@@ -22,7 +22,7 @@ router.post("/register", async (request, response) => {
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   const hash = await bcrypt.hash(password, salt);
 
-  const { id } = users.create(email, username, hash);
+  const { id } = await users.create(email, username, hash);
 
   request.session.user = {
     id, username, email
@@ -55,7 +55,7 @@ router.post("/login", async (request, response) => {
     }
   } catch(error) {
     console.log(error);
-    response.render("home", {error: "Something went wrong during log in."});
+    response.render("home", {error: "The credentials you supplied are invalid."});
   }
 });
 

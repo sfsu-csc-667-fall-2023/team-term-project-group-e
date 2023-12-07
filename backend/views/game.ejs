@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>Game <%=id%>
+  <title>Game <%=gameId%>
   </title>
   <script src="/scripts/chat.js" defer></script>
   <script src="/scripts/games.js" defer></script>
@@ -12,14 +12,24 @@
 
 <body>
   <main>
-    <p>Game Room <%=id%>
+    <p>Game Room <%=gameId%>
     </p>
     <input type="hidden" name="game-socket-id" id="game-socket-id" value="<%= gameSocketId %>" />
+    <input type="hidden" name="user-socket-id" id="user-socket-id" value="<%= userSocketId %>" />
 
-    <%- include("partials/chat", { roomId: id }); %>
+    <div id="game-board">
+    </div>
+
+    <%- include("partials/chat", { roomId: gameId }); %>
       <a href="/lobby">Back to Lobby</a>
   </main>
 
 </body>
 
 </html>
+
+<template id="start-button-template">
+  <form id="start-button" action="/game/start" method="post">
+    <input type="submit" value="start" />
+  </form>
+</template>
