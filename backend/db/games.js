@@ -1,4 +1,6 @@
-const db = require("./connection");
+const { connection: db } = require("./connection");
+
+const { createShuffledDeck } = require("./games/create-shuffled-deck");
 
 /* Creating games */
 const CREATE = "INSERT INTO games (game_socket_id) VALUES ($1) RETURNING id";
@@ -16,10 +18,17 @@ const getAvailableGames = () =>db.any(GET_AVAILABLE_GAMES);
 const userCount = (gameId) => db.one(GET_USER_COUNT, [gameId])
   .then(({ count }) => parseInt(count));
 
-const initialize = () => {
+const initialize = async (gameId) => {
+  // Create deck of shuffled cards for specific game id
+  await createShuffledDeck(gameId);
   
+  // Set current seat 
+
+  // Deal 7 cards to each player
+
+  // Send each player their cards (personalized game state)
 }
 
 module.exports = {
-  create, addUser, getGame, getAvailableGames, userCount
+  create, addUser, getGame, getAvailableGames, userCount, initialize
 }

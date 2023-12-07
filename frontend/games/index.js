@@ -1,10 +1,15 @@
-import { io } from "socket.io-client";
-import { configure as gameSocketConfig } from "./game_socket";
+import gameSocketConfig from "./game_socket";
+import userSocketConfig from "./user_socket";
 
 const gameSocketId = document.querySelector("#game-socket-id").value;
-// const userSocketId = document.querySelector("#user-socket-id").value;
+const userSocketId = document.querySelector("#user-socket-id").value;
 
-const gameSocket = io({ query: { gameSocketId }});
-// const userSocket = io({ query: { userSocketId }});
+gameSocketConfig(gameSocketId);
+userSocketConfig(userSocketId);
 
-gameSocketConfig(gameSocket);
+document.querySelector("#start-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const { action, method } = event.target.attributes;
+  fetch(action.value, { method: method.value });
+  return false;
+})

@@ -1,4 +1,4 @@
-const db = require("./connection");
+const { connection: db } = require("./connection");
 
 const USERS_EXISTENCE = "SELECT email FROM users WHERE email=$1";
 const ADD_USER = "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING id";

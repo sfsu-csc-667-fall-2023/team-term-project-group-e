@@ -7,6 +7,8 @@ const chatSocket = io();
 const roomId = document.querySelector("#room-id").value;
 
 chatSocket.on(`chat:message:${roomId}`, ({ from, timestamp, message, hash}) => {
+  console.log({event: 'chat:message', timestamp, message});
+
   const div = document.querySelector("#message-template").content.cloneNode(true);
 
   const img = div.querySelector("img");

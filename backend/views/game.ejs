@@ -16,8 +16,14 @@
     </p>
     <input type="hidden" name="game-socket-id" id="game-socket-id" value="<%= gameSocketId %>" />
     <input type="hidden" name="user-socket-id" id="user-socket-id" value="<%= userSocketId %>" />
+    <input type="hidden" name="game-id" id="game-id" value="<%= gameId %>" />
+
+    <form method="post" action="/game/<%=gameId%>/start" id="start-form">
+      <input type="submit" value="start" />
+    </form>
 
     <div id="game-board">
+
     </div>
 
     <%- include("partials/chat", { roomId: gameId }); %>
@@ -27,9 +33,3 @@
 </body>
 
 </html>
-
-<template id="start-button-template">
-  <form id="start-button" action="/game/start" method="post">
-    <input type="submit" value="start" />
-  </form>
-</template>
