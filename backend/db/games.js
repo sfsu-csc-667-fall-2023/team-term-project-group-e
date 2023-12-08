@@ -19,14 +19,14 @@ const addUser = (userId, gameId) => userCount(gameId).then(
   playerCount => db.none(ADD_USER, [userId, gameId, playerCount + 1]) // First player in will be in seat 1, second player seat 2, etc. deck us seat 0
 );
 const getGame = (gameId) => db.one(GET_GAME, gameId);
-const getAvailableGames = () =>db.any(GET_AVAILABLE_GAMES);
+const getAvailableGames = () => db.any(GET_AVAILABLE_GAMES);
 const userCount = (gameId) => db.one(GET_USER_COUNT, [gameId])
   .then(({ count }) => parseInt(count));
 
 const initialize = async (gameId) => {
   // Create deck of shuffled cards for specific game id
   await createShuffledDeck(gameId);
-  
+
   // Set current seat (the first player in the game gets the current seat)
   const firstPlayer = await getPlayerBySeat(1, gameId);
   await setCurrentPlayer(firstPlayer.user_id, gameId);
@@ -39,11 +39,11 @@ const initialize = async (gameId) => {
 }
 
 module.exports = {
-  create, 
-  addUser, 
-  getGame, 
+  create,
+  addUser,
+  getGame,
   getAvailableGames,
-  userCount, 
+  userCount,
   getUsersInGame,
   getHandOfPlayer,
   initialize
