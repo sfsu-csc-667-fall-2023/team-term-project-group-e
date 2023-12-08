@@ -3,7 +3,7 @@ const { getUsersInGame } = require("./get-users-in-game");
 
 const DEAL_CARD = "UPDATE game_cards SET user_id=$1 WHERE game_id=$2 AND card_order=$3";
 
-const dealCards = async (gameId) => {
+const dealStartingCards = async (gameId) => {
   const users = await getUsersInGame(gameId);
 
   return Promise.all(users.reduce((memo, { user_id }, index) => {
@@ -17,4 +17,4 @@ const dealCards = async (gameId) => {
   }, []));
 }
 
-module.exports = { dealCards };
+module.exports = { dealStartingCards };
