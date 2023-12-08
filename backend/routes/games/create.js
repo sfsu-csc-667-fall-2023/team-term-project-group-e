@@ -9,7 +9,7 @@ const create = async (request, response) => {
   const { id: gameId } = await Games.createGame(
     crypto.randomBytes(20).toString('hex')
   );
-  await Games.addUser(userId, gameId);
+  await Games.addUserToGame(userId, gameId);
 
   io.emit(GAME_CONSTANTS.CREATED, { id: gameId });
 

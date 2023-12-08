@@ -8,19 +8,21 @@ const { getRandomCard } = require("./games/get-random-card");
 const { getUserCount } = require("./games/get-user-count");
 const { getUsersInGame } = require("./games/get-users-in-game");
 const { setCurrentPlayer } = require("./games/set-current-player");
+const { setGameDirection } = require("./games/set-game-direction");
 
 // Helper Functions
 const { createShuffledDeck } = require("./games/create-shuffled-deck");
 const { dealStartingCards } = require("./games/deal-starting-cards");
 const { getPlayerBySeat } = require("./games/get-player-by-seat");
+const { setGameInitialized } = require("./games/set-game-initialized");
 
 const initializeGame = async (gameId) => {
+  await setGameInitialized(gameId);
   await createShuffledDeck(gameId);
+  await dealStartingCards(gameId);
 
   const firstPlayer = await getPlayerBySeat(1, gameId);
   await setCurrentPlayer(firstPlayer.user_id, gameId);
-
-  await dealStartingCards(gameId);
 
   return firstPlayer;
 }
@@ -35,4 +37,5 @@ module.exports = {
   getUserCount,
   getUsersInGame,
   initializeGame,
+  setGameDirection,
 }
