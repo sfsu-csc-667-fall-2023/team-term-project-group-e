@@ -36,3 +36,18 @@ Table game_cards {
   card_id int     // what card the user has
   card_order int  // order of cards in game
 }
+
+game --> 
+  set up databases
+  send hands to players
+  send signal to players whether they are active or not
+
+player -->
+  play card or draw card 
+  send to game backend which action played
+
+game -->
+  react to action played
+  update databases
+  update hands of players (updater all player hands or only hands updated?)
+  send signal to players whether they are active or not
