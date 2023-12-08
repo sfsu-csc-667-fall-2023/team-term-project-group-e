@@ -47,6 +47,11 @@ router.post("/login", async (request, response) => {
         username: user.username,
         email
       }    
+
+      const test = request.session.user;
+
+      console.log({ test });
+
       response.redirect("/lobby");
       return;
     } else {
