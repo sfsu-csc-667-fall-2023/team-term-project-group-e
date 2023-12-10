@@ -2,11 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const { create } = require("./games/create");
-const { start } = require("./games/start");
-const { join } = require("./games/join");
+const { draw } = require("./games/draw");
 const { id } = require("./games/id");
+const { join } = require("./games/join");
+const { play } = require("./games/play");
+const { start } = require("./games/start");
 
 router.get("/create", (request, response) => create(request, response));
+
+router.post("/:id/play", (request, response) => play(request, response));
+
+router.post("/:id/draw", (request, response) => draw(request, response));
 
 router.post("/:id/start",  (request, response) => start(request, response));
 

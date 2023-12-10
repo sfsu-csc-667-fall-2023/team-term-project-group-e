@@ -51,3 +51,10 @@ game -->
   update databases
   update hands of players (updater all player hands or only hands updated?)
   send signal to players whether they are active or not
+
+
+card ids:
+0 = in deck
+-1 = face up card
+
+1 - infinity = in user hand
