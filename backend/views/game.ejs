@@ -23,7 +23,43 @@
     </form>
 
     <div id="game-board">
-
+      <div id="game">
+        <p>Oppponent Cards</p>
+        <div id="opponents">
+          <div class="opponent">
+            <p>Usernamehere</p>
+            <p>5 cards</p>
+          </div>
+          <div class="opponent">
+            <p>Usernamehere</p>
+            <p>5 cards</p>
+          </div>
+          <div class="opponent">
+            <p>Usernamehere</p>
+            <p>5 cards</p>
+          </div>
+        </div>
+        <div id="current-card">
+          <div class="card">
+            <p>Red 1</p>
+          </div>
+        </div>
+        <p>Your Cards:</p>
+        <div id="player-cards">
+          <div class="card">
+            <p>Red 1</p>
+          </div>
+          <div class="card">
+            <p>Blue 1</p>
+          </div>
+          <div class="card">
+            <p>Green 1</p>
+          </div>
+        </div>
+      </div>
+      <div id="message-log">
+        <p>Game Log</p>
+      </div>
     </div>
 
     <%- include("partials/chat", { roomId: gameId }); %>
@@ -31,5 +67,18 @@
   </main>
 
 </body>
+
+<template id="card-template">
+  <div class="card">
+    <p></p>
+  </div>
+</template>
+
+<template id="opponent-template">
+  <div class="opponent">
+    <p></p>
+    <p></p>
+  </div>
+</template>
 
 </html>

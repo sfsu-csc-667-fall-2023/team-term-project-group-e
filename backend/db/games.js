@@ -2,7 +2,8 @@
 const { addUserToGame } = require("./games/add-user-to-game");
 const { createGame } = require("./games/create-game");
 const { getAvailableGames } = require("./games/get-available-games");
-const { getGame } = require("./games/get-game");
+const { getGameInfo } = require("./games/get-game-info");
+const { getGameSocket } = require("./games/get-game-socket");
 const { getHandOfPlayer } = require("./games/get-hand-of-player");
 const { getRandomCard } = require("./games/get-random-card");
 const { getUserCount } = require("./games/get-user-count");
@@ -31,7 +32,8 @@ module.exports = {
   addUserToGame,
   createGame,
   getAvailableGames,
-  getGame,
+  getGameInfo,
+  getGameSocket,
   getHandOfPlayer,
   getRandomCard,
   getUserCount,

@@ -12,6 +12,6 @@ router.post("/:id/start",  (request, response) => start(request, response));
 
 router.get("/:id/join", (request, response) => join(request, response));
 
-router.get("/:id", async (request, response) => id(request, response));
+router.get("/:id", (request, response) => id(request, response));
 
 module.exports = router;

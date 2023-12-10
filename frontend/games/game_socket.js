@@ -22,6 +22,18 @@ const gameSocketConfig = (socketId) => {
     console.log({ event: GAME_CONSTANTS.USER_ADDED, data});
   });
 
+  gameSocket.on(GAME_CONSTANTS.GAME_INFO, data => {
+    console.log({ event: GAME_CONSTANTS.GAME_INFO, data});
+  });
+
+  gameSocket.on(GAME_CONSTANTS.USER_CURRENT, data => {
+    console.log({ event: GAME_CONSTANTS.USER_CURRENT, data });
+  });
+
+  gameSocket.on(GAME_CONSTANTS.FACE_UP_CARD, data => {
+    console.log({ event: GAME_CONSTANTS.FACE_UP_CARD, data});
+  })
+
 }
 
 export default gameSocketConfig;
