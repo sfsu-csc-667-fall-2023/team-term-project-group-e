@@ -12,4 +12,4 @@ document.querySelector("#start-form").addEventListener("submit", (event) => {
   const { action, method } = event.target.attributes;
   fetch(action.value, { method: method.value });
   return false;
-})
+});

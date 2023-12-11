@@ -3,6 +3,8 @@ import * as USER_CONSTANTS from "../../constants/user";
 
 let userSocket;
 
+const gameId = document.querySelector("#game-id").value;
+
 const userSocketConfig = (socketId) => {
   userSocket = io({ query: { id: socketId }});
 
@@ -10,6 +12,31 @@ const userSocketConfig = (socketId) => {
     // update the player's cards to showcase what's in their hand currently
     // change color cards should have 4 buttons: red, green, blue, yellow, and the user clicks the color they want to change the deck to.S
     console.log({ event: USER_CONSTANTS.HAND, data });
+    
+    const handContainer = document.querySelector("#player-cards");
+    for(const card of data.hand){
+      const template = document.querySelector("#message-template").content.cloneNode(true);
+      const div = template.querySelector("div");
+      const p = template.querySelector("p");
+      if(card.color !== 'none'){
+        if(card.value !== -1){
+          p.innerText = card.color + " " + card.value;
+        } else {
+          p.innerText = card.color + " " + card.modifier;
+        }
+        const a = document.createElement("a");
+        a.innerText = "Play";
+        a.href = `/game/${gameId}/play/${card.id}`;
+        div.appendChild(a);
+      } else {
+        if(card.modifier === 'change_color'){
+          p.innerText = "Change Color";
+        } else {
+          p.innerText = "Change Color + 4";
+        }
+      }
+      handContainer.appendChild(template);
+    }
   })
 
   userSocket.on(USER_CONSTANTS.CURRENT, data => {

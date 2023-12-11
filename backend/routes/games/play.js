@@ -1,14 +1,15 @@
-const { Games } = require("../../db");
+const { Games, Users } = require("../../db");
 const { canPlayCard } = require("./canPlayCard");
 const { nextPlayer } = require("./nextPlayer");
 const { sendGameState } = require("./sendGameState");
 
 const USER_CONSTANTS = require("../../../constants/user");
-const GAME_CONSTATS = require("../../../constants/game"); 
+const GAME_CONSTANTS = require("../../../constants/game"); 
 
 const play = async (request, response) => {
   const { id: userId } = request.session.user;
-  const { id: gameId } = request.params;
+  const { id: gameId, id: cardId } = request.params;
+  console.log({ cardId });
   const { sid: userSocketId } = await Users.getUserSocket(userId);
   const io = request.app.get("io");
 

@@ -28,7 +28,11 @@ const sendGameState = async (io, gameId) => {
     const { sid: userSocketId } = await Users.getUserSocket(id);
 
     // Send hand
-    const hand = await Games.getHandOfPlayer(id, gameId);
+    const cards = await Games.getHandOfPlayer(id, gameId);
+    let hand = [];
+    for (const card of cards){
+      hand.push(await Games.getCardInfo(card.card_id));
+    }
     io.to(userSocketId).emit(USER_CONSTANTS.HAND, { hand });
 
     // Send status

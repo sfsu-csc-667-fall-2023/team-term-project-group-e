@@ -18,7 +18,7 @@
     <input type="hidden" name="user-socket-id" id="user-socket-id" value="<%= userSocketId %>" />
     <input type="hidden" name="game-id" id="game-id" value="<%= gameId %>" />
 
-    <form method="post" action="/game/<%=gameId%>/start" id="start-form">
+    <form method="get" action="/game/<%=gameId%>/start" id="start-form">
       <input type="submit" value="start" />
     </form>
 
@@ -46,7 +46,7 @@
         </div>
         <p>Your Cards:</p>
         <div id="player-cards">
-          <div class="card">
+          <!-- <div class="card">
             <p>Red 1</p>
           </div>
           <div class="card">
@@ -54,7 +54,7 @@
           </div>
           <div class="card">
             <p>Green 4</p>
-          </div>
+          </div> -->
         </div>
       </div>
       <div id="message-log">
@@ -71,6 +71,7 @@
 <template id="card-template">
   <div class="card">
     <p></p>
+    <a></a>
   </div>
 </template>
 
