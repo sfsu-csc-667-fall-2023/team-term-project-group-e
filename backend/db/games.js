@@ -26,14 +26,21 @@ const initializeGame = async (gameId) => {
   await setGameInitialized(gameId);
   await createShuffledDeck(gameId);
   await dealStartingCards(gameId);
+
+  let faceUpCard = await getRandomCard(gameId);  
+  let cardInfo = await getCardInfo(faceUpCard.card_id);
   
-  const randomCard = await getRandomCard(gameId);
-  await setGameCard(-1, randomCard.card_id, gameId);
+  while(cardInfo.modifier !== 'none'){
+    faceUpCard = await getRandomCard(gameId);  
+    cardInfo = await getCardInfo(faceUpCard.card_id);
+  }
+
+  await setGameCard(-1, faceUpCard.card_id, gameId);
 
   const firstPlayer = await getPlayerBySeat(1, gameId);
   await setCurrentPlayer(firstPlayer.user_id, gameId);
 
-  return firstPlayer;
+  console.log("Initialized game " + gameId);
 }
 
 module.exports = {

@@ -8,20 +8,23 @@ const sendGameState = async (io, gameId) => {
   // need to make sure to emit to specific socket later
   const gameSocketId = await Games.getGameSocket(gameId);
 
+  console.log("Sending game state " + gameId);
   // Emit game info (usernames + their card counts) to the game socket.
-  const gameInfo = await Games.getGameInfo(gameId);
+  const gameInfo = await Games.getGameInfo(parseInt(gameId));
+  console.log({ gameInfo });
   io.emit(GAME_CONSTANTS.GAME_INFO, { gameInfo });  
  
   // Emit current player to the game socket.
-  const currentPlayer = await Games.getCurrentSeat(gameId);
+  const currentPlayer = await Games.getCurrentSeat(parseInt(gameId));
   io.emit(GAME_CONSTANTS.USER_CURRENT, { currentPlayer });
 
   // Emit face up card to the game socket.
-  const faceUpCard = await Games.getFaceUpCard(gameId);
+  const faceUpCardId = await Games.getFaceUpCard(parseInt(gameId));
+  const faceUpCard = await Games.getCardInfo(faceUpCardId.card_id);
   io.emit(GAME_CONSTANTS.FACE_UP_CARD, {faceUpCard});
 
   // Emit hand info and current / not-current statuses to each player.
-  const players = await Games.getUsersInGame(gameId);
+  const players = await Games.getUsersInGame(parseInt(gameId));
   for (const player of players) {
     // Get id and socket
     const id = parseInt(player.user_id);
@@ -42,6 +45,7 @@ const sendGameState = async (io, gameId) => {
       io.to(userSocketId).emit(USER_CONSTANTS.NOT_CURRENT);
     }
   }
+  console.log("Sent game state " + gameId);
 }
 
 module.exports = { sendGameState };

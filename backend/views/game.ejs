@@ -24,37 +24,14 @@
 
     <div id="game-board">
       <div id="game">
-        <p>Oppponent Cards</p>
+        <p>User Cards:</p>
         <div id="opponents">
-          <div class="opponent">
-            <p>1: Username1 </p>
-            <p>5 cards</p>
-          </div>
-          <div class="opponent">
-            <p>2: Username2</p>
-            <p>8 cards</p>
-          </div>
-          <div class="opponent">
-            <p>3: Username3</p>
-            <p>4 cards</p>
-          </div>
         </div>
+        <p>Current Card:</p>
         <div id="current-card">
-          <div class="card">
-            <p>Red 1</p>
-          </div>
         </div>
         <p>Your Cards:</p>
         <div id="player-cards">
-          <!-- <div class="card">
-            <p>Red 1</p>
-          </div>
-          <div class="card">
-            <p>Blue 7</p>
-          </div>
-          <div class="card">
-            <p>Green 4</p>
-          </div> -->
         </div>
       </div>
       <div id="message-log">
@@ -71,14 +48,13 @@
 <template id="card-template">
   <div class="card">
     <p></p>
-    <a></a>
   </div>
 </template>
 
 <template id="opponent-template">
   <div class="opponent">
-    <p></p>
-    <p></p>
+    <p id="username"></p>
+    <p id="card-count"></p>
   </div>
 </template>
 

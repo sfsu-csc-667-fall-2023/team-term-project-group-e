@@ -1,11 +1,8 @@
 const { connection: db } = require("../connection");
 
-const GET_GAME_INFO = "select count(game_cards.card_id), users.username, users.id from game_cards inner join users on game_cards.user_id=users.id where game_cards.game_id=$1 group by users.id";
+const GET_GAME_INFO = "SELECT count(game_cards.card_id), users.username, users.id FROM game_cards INNER JOIN users ON game_cards.user_id=users.id WHERE game_cards.game_id=$1 GROUP BY users.id";
 
-const getGameInfo = (gameId) => {
-  console.log({ gameId });
-  db.many(GET_GAME_INFO, [gameId])
-};
+const getGameInfo = (gameId) => db.many(GET_GAME_INFO, [gameId]);
 
 module.exports = { getGameInfo };
 

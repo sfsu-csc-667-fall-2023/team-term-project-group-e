@@ -14,8 +14,9 @@ const userSocketConfig = (socketId) => {
     console.log({ event: USER_CONSTANTS.HAND, data });
     
     const handContainer = document.querySelector("#player-cards");
+    handContainer.innerHTML = '';
     for(const card of data.hand){
-      const template = document.querySelector("#message-template").content.cloneNode(true);
+      const template = document.querySelector("#card-template").content.cloneNode(true);
       const div = template.querySelector("div");
       const p = template.querySelector("p");
       if(card.color !== 'none'){

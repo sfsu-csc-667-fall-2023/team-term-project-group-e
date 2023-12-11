@@ -28,6 +28,16 @@ const gameSocketConfig = (socketId) => {
   gameSocket.on(GAME_CONSTANTS.GAME_INFO, data => {
     // update the game board to show each player's username and the number of cards they have
     console.log({ event: GAME_CONSTANTS.GAME_INFO, data});
+    const usersContainer = document.getElementById("opponents");
+    usersContainer.innerHTML = '';
+    for(const player of data.gameInfo){
+      const template = document.querySelector("#opponent-template").content.cloneNode(true);
+      const p1 = template.querySelector("#username");
+      const p2 = template.querySelector("#card-count");
+      p1.innerText = player.username;
+      p2.innerText = "Cards: " + player.count;
+      usersContainer.appendChild(template);
+    }
   });
 
   gameSocket.on(GAME_CONSTANTS.USER_CURRENT, data => {
@@ -38,6 +48,17 @@ const gameSocketConfig = (socketId) => {
   gameSocket.on(GAME_CONSTANTS.FACE_UP_CARD, data => {
     // update the game board to showcase the current face up card
     console.log({ event: GAME_CONSTANTS.FACE_UP_CARD, data});
+
+    const currentBoard = document.getElementById("current-card");
+    currentBoard.innerHTML = '';
+
+    const template = document.querySelector("#card-template").content.cloneNode(true);
+    const p = template.querySelector("p");
+    const currentCard = document.querySelector("#current-card");
+    p.innerText = data.faceUpCard.color + " " + data.faceUpCard.value;
+
+    currentCard.appendChild(template);
+
   })
 
 }
