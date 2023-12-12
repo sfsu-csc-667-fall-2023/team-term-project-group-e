@@ -16,13 +16,6 @@ const play = async (request, response) => {
   const { card_id: cardId } = request.body;
   console.log({ gameId, cardId });
 
-  // 
-  if(cardId < 0){
-    console.log("change color card");
-    response.status(200).send();
-    return;
-  } 
-
   // Check if the card can be played based on the face up card.
   const faceUpCard = await Games.getFaceUpCard(gameId);
   const faceUpCardInfo = await Games.getCardInfo(faceUpCard.card_id);

@@ -3,6 +3,7 @@ const { addUserToGame } = require("./games/add-user-to-game");
 const { createGame } = require("./games/create-game");
 const { getAvailableGames } = require("./games/get-available-games");
 const { getCardInfo } = require("./games/get-card-info");
+const { getCurrentColor } = require("./games/get-current-color");
 const { getFaceUpCard } = require("./games/get-face-up-card");
 const { getGameDirection } = require("./games/get-game-direction");
 const { getGameInfo } = require("./games/get-game-info");
@@ -13,6 +14,7 @@ const { getRandomCard } = require("./games/get-random-card");
 const { getSeatByPlayer } = require("./games/get-seat-by-player");
 const { getUserCount } = require("./games/get-user-count");
 const { getUsersInGame } = require("./games/get-users-in-game");
+const { setCurrentColor } = require("./games/set-current-color");
 const { getCurrentSeat } = require("./games/get-current-seat");
 const { setCurrentPlayer } = require("./games/set-current-player");
 const { setGameCard } = require("./games/set-game-card");
@@ -37,6 +39,7 @@ const initializeGame = async (gameId) => {
   }
 
   await setGameCard(-1, faceUpCard.card_id, gameId);
+  await setCurrentColor(cardInfo.color, gameId);
 
   const firstPlayer = await getPlayerBySeat(1, gameId);
   await setCurrentPlayer(firstPlayer.user_id, gameId);
@@ -50,6 +53,7 @@ module.exports = {
   getFaceUpCard,
   getAvailableGames,
   getCardInfo,
+  getCurrentColor,
   getGameDirection,
   getGameInfo,
   getGameSocket,
@@ -61,6 +65,7 @@ module.exports = {
   getUsersInGame,
   getCurrentSeat,
   initializeGame,
+  setCurrentColor,
   setCurrentPlayer,
   setGameCard,
   setGameDirection,
