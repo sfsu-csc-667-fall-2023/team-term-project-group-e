@@ -15,7 +15,7 @@ const start = async (request, response) => {
 
   await sendGameState(io, gameId);
 
-  response.status(200).send();
+  response.status(200);
 }
 
 module.exports = { start };

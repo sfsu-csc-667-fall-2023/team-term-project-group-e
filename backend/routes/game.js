@@ -10,7 +10,7 @@ const { start } = require("./games/start");
 
 router.get("/create", (request, response) => create(request, response));
 
-router.get("/:id/play/:id", (request, response) => play(request, response));
+router.get("/:game_id/play/:card_id", (request, response) => play(request, response));
 
 router.get("/:id/draw", (request, response) => draw(request, response));
 

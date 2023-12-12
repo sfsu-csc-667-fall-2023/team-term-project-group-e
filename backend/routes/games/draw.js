@@ -1,7 +1,8 @@
 const { Games } = require("../../db");
 const { canPlayCard } = require("./canPlayCard");
-const { nextPlayer } = require("./nextPlayer");
 const { sendGameState } = require("./sendGameState");
+const { setNextPlayer } = require("./setNextPlayer");
+const { getNextPlayer } = require("./getNextPlayer");
 
 const draw = async (request, response) => {
   const { id: userId } = request.session.user;
@@ -20,7 +21,8 @@ const draw = async (request, response) => {
    
   //If the card can't be played, move to the next player.
   if(!canPlay){
-    await nextPlayer(gameId);
+    const nextPlayer = await getNextPlayer(gameId);
+    await setNextPlayer(nextPlayer.user_id);
 
     response.status(200).send();
     return;

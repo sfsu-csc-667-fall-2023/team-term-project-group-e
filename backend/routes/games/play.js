@@ -1,6 +1,7 @@
 const { Games, Users } = require("../../db");
 const { canPlayCard } = require("./canPlayCard");
-const { nextPlayer } = require("./nextPlayer");
+const { setNextPlayer } = require("./setNextPlayer");
+const { getNextPlayer } = require("./getNextPlayer");
 const { sendGameState } = require("./sendGameState");
 
 const USER_CONSTANTS = require("../../../constants/user");
@@ -8,21 +9,22 @@ const GAME_CONSTANTS = require("../../../constants/game");
 
 const play = async (request, response) => {
   const { id: userId } = request.session.user;
-  const { id: gameId, id: cardId } = request.params;
-  console.log({ cardId });
+  const { game_id: gameId, card_id: cardId } = request.params;
   const { sid: userSocketId } = await Users.getUserSocket(userId);
   const io = request.app.get("io");
 
-  /* 
-  Card that is sent in the request body. Color is for the change_color functionality
-  'none' = normal color 'everything_else' = color the user wants to change it to. 
-  */
-  const { card_id, color } = request.body;  
+  console.log({ gameId, cardId });
+
+  if(cardId < 0){
+    console.log("change color card");
+    response.status(200).send();
+    return;
+  } 
 
   // Check if the card can be played based on the face up card.
   const faceUpCard = await Games.getFaceUpCard(gameId);
   const faceUpCardInfo = await Games.getCardInfo(faceUpCard.card_id);
-  const cardInfo = await Games.getCardInfo(card_id);
+  const cardInfo = await Games.getCardInfo(cardId);
   const canPlay = canPlayCard(cardInfo, faceUpCardInfo);
 
   // If card can't be played, emit a CANT_PLAY_CARD signal.
@@ -33,38 +35,39 @@ const play = async (request, response) => {
   }
 
   await Games.setGameCard(0, faceUpCard.card_id, gameId);   // Set current face up card to 0 (it's in the deck now)
-  await Games.setGameCard(-1, card_id, gameId);   // Set the face up card to card_id from request body (change it from user_id to -1)
+  await Games.setGameCard(-1, cardId, gameId);   // Set the face up card to card_id from request body (change it from user_id to -1)
 
-  // Check for modifiers / effects
-  // Update the database depending on what modifiers are played.
-  if(card.modifier !== 'none'){
-    switch(card.modifier){
-      case 'skip':
-        const currentSeat = await Games.getCurrentSeat(gameId);
-        const numOfPlayers = await Games.getUserCount(gameId);
+  switch(cardInfo.modifier){
+    case 'add_2':
 
-        await Games.setCurrentPlayer(nextPlayer, gameId);
+      const nextPlayer1 = await getNextPlayer(gameId);
+      await setNextPlayer(nextPlayer1.user_id, gameId);
 
-        break;
-      case 'add_2':
+      for(let i = 0; i < 2; i++){
+        const card = await Games.getRandomCard(gameId);
+        await Games.setGameCard(nextPlayer.user_id, card.card_id, gameId);
+      }
 
-        break;
-
-      case 'reverse':
-        break;
-      case 'change_color':
-        break;
-
-      case 'change_color_add_4':
-
-        break;
-
-    }
+      break;
+    case 'skip':
+      const nextPlayer2 = await getNextPlayer(gameId);
+      await setNextPlayer(nextPlayer2.user_id, gameId);
+      break;
+    case 'reverse':
+      const direction = await Games.getGameDirection(gameId);
+      if(direction.direction === 'forward'){
+        await Games.setGameDirection('backward', gameId);
+      } else {
+        await Games.setGameDirection('forward', gameId);
+      }
+      break;
   }
+  // do stuff
 
-  await nextPlayer(gameId);
+  const nextPlayer = await getNextPlayer(gameId);
+  await setNextPlayer(nextPlayer.user_id, gameId);
 
-  await sendGameState(gameId);
+  await sendGameState(io, gameId);
 
   // check if seat can play a card. if they can't add draw card button for them.
 

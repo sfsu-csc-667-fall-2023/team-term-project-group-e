@@ -10,6 +10,7 @@ const { getGameSocket } = require("./games/get-game-socket");
 const { getHandOfPlayer } = require("./games/get-hand-of-player");
 const { getPlayerBySeat } = require("./games/get-player-by-seat");
 const { getRandomCard } = require("./games/get-random-card");
+const { getSeatByPlayer } = require("./games/get-seat-by-player");
 const { getUserCount } = require("./games/get-user-count");
 const { getUsersInGame } = require("./games/get-users-in-game");
 const { getCurrentSeat } = require("./games/get-current-seat");
@@ -55,6 +56,7 @@ module.exports = {
   getHandOfPlayer,
   getPlayerBySeat,
   getRandomCard,
+  getSeatByPlayer,
   getUserCount,
   getUsersInGame,
   getCurrentSeat,

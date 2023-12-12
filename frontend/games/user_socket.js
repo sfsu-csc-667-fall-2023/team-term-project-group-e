@@ -32,8 +32,46 @@ const userSocketConfig = (socketId) => {
       } else {
         if(card.modifier === 'change_color'){
           p.innerText = "Change Color";
+          const a1 = document.createElement("a");
+          const a2 = document.createElement("a");
+          const a3 = document.createElement("a");
+          const a4 = document.createElement("a");
+
+          a1.innerText = "Change to red";
+          a2.innerText = "Change to blue";
+          a3.innerText = "Change to green";
+          a4.innerText = "Change to yellow";
+
+          a1.href = `/game/${gameId}/play/-1`;
+          a2.href = `/game/${gameId}/play/-2`;
+          a3.href = `/game/${gameId}/play/-3`;
+          a4.href = `/game/${gameId}/play/-4`;
+
+          div.appendChild(a1);
+          div.appendChild(a2);
+          div.appendChild(a3);
+          div.appendChild(a4);
         } else {
           p.innerText = "Change Color + 4";
+          const a1 = document.createElement("a");
+          const a2 = document.createElement("a");
+          const a3 = document.createElement("a");
+          const a4 = document.createElement("a");
+
+          a1.innerText = "Change to red";
+          a2.innerText = "Change to blue";
+          a3.innerText = "Change to green";
+          a4.innerText = "Change to yellow";
+
+          a1.href = `/game/${gameId}/play/-5`;
+          a2.href = `/game/${gameId}/play/-6`;
+          a3.href = `/game/${gameId}/play/-7`;
+          a4.href = `/game/${gameId}/play/-8`;
+
+          div.appendChild(a1);
+          div.appendChild(a2);
+          div.appendChild(a3);
+          div.appendChild(a4);
         }
       }
       handContainer.appendChild(template);
