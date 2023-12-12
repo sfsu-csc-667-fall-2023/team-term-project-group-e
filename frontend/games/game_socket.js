@@ -52,7 +52,7 @@ const gameSocketConfig = (socketId) => {
     const currentBoard = document.getElementById("current-card");
     currentBoard.innerHTML = '';
 
-    const template = document.querySelector("#card-template").content.cloneNode(true);
+    const template = document.querySelector("#board-card-template").content.cloneNode(true);
     const p = template.querySelector("p");
     const currentCard = document.querySelector("#current-card");
     p.innerText = data.faceUpCard.color + " " + data.faceUpCard.value;

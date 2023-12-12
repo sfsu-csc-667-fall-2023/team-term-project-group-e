@@ -14,6 +14,13 @@ document.querySelector("#start-form").addEventListener("submit", (event) => {
   return false;
 });
 
+document.querySelector("#draw-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const { action, method } = event.target.attributes;
+  fetch(action.value, { method: method.value });
+  return false;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const playerCards = document.getElementById("player-cards");
   playerCards.addEventListener('submit', (event) => {

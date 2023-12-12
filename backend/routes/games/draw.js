@@ -1,8 +1,9 @@
-const { Games } = require("../../db");
+const { Games, Users } = require("../../db");
 const { canPlayCard } = require("./canPlayCard");
 const { sendGameState } = require("./sendGameState");
 const { setNextPlayer } = require("./setNextPlayer");
 const { getNextPlayer } = require("./getNextPlayer");
+const USER_CONSTANTS = require("../../../constants/user");
 
 const draw = async (request, response) => {
   const { id: userId } = request.session.user;
@@ -13,11 +14,7 @@ const draw = async (request, response) => {
   await Games.setGameCard(userId, randomCard.card_id, gameId);
 
   // Check if that card can be played.
-  const cardInfo = await Games.getCardInfo(randomCard.card_id);
-  const faceUpCard = await Games.getFaceUpCard(gameId);
-  const faceUpCardInfo = await Games.getCardInfo(faceUpCard);
-
-  const canPlay = canPlayCard(cardInfo, faceUpCardInfo);
+  const canPlay = canPlayCard(randomCard.card_id, gameId);
    
   //If the card can't be played, move to the next player.
   if(!canPlay){
@@ -28,7 +25,11 @@ const draw = async (request, response) => {
     return;
   } 
 
-  await sendGameState(gameId)
+  const io = request.app.get("io");
+  const { sid: userSocketId } = await Users.getUserSocket(userId);
+  io.to(userSocketId).emit(USER_CONSTANTS.REMOVE_DRAW_CARD, {});
+
+  await sendGameState(io, gameId);
 
   response.status(200).send();
 }

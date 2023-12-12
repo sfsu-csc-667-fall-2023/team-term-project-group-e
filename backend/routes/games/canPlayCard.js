@@ -11,7 +11,7 @@ const canPlayCard = async (cardId, gameId) => {
     const currentCard = await Games.getFaceUpCard(gameId);
     const currentCardInfo = await Games.getCardInfo(currentCard.card_id);
 
-    if(cardInfo.color === currentColor.current_color || cardInfo.value === currentCardInfo.value){
+    if(cardInfo.color === currentColor.current_color || (cardInfo.value === currentCardInfo.value && cardInfo.modifier === 'none')){
       return true;
     }
   }

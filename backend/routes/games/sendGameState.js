@@ -48,4 +48,23 @@ const sendGameState = async (io, gameId) => {
   console.log("Sent game state " + gameId);
 }
 
+// seat = await Games.getCurrentSeat(gameId);
+//   const hand = await Games.getHandOfPlayer(seat.current_seat, gameId);
+//   let can_play = false;
+//   console.log({ hand });
+//   for(const card_id of hand){
+//     let card = await Games.getCardInfo(card_id.card_id);
+//     console.log("checking ", { card });
+//     if(await canPlayCard(card_id.card_id, gameId)){
+//       can_play = true;
+//       console.log("this card can be played");
+//       break;
+//     }
+//   }
+
+//   if(!can_play){
+//     console.log("Emitting must draw card signal ")
+//     io.to(userSocketId).emit(USER_CONSTANTS.MUST_DRAW_CARD, {});
+//   }
+
 module.exports = { sendGameState };

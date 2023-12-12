@@ -17,7 +17,7 @@ const play = async (request, response) => {
   const cardId = body.card_id;
   const color = body.color;
 
-  const seat = await Games.getCurrentSeat(gameId);
+  let seat = await Games.getCurrentSeat(gameId);
   if(userId !== seat.current_seat){
     response.status(200).send();
     return;
@@ -52,7 +52,7 @@ const play = async (request, response) => {
       // Add two random cards to player
       for(let i = 0; i < 2; i++){
         const card = await Games.getRandomCard(gameId);
-        await Games.setGameCard(nextPlayer.user_id, card.card_id, gameId);
+        await Games.setGameCard(nextPlayer1.user_id, card.card_id, gameId);
       }
 
       break;
@@ -98,7 +98,6 @@ const play = async (request, response) => {
   await sendGameState(io, gameId);
 
   // check if seat can play a card. if they can't add draw card button for them.
-
   response.status(200).send();
 }
 

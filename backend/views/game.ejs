@@ -19,7 +19,7 @@
     <input type="hidden" name="game-id" id="game-id" value="<%= gameId %>" />
 
     <form method="post" action="/game/<%=gameId%>/start" id="start-form">
-      <input type="submit" value="start" />
+      <input type="submit" value="Start" />
     </form>
 
     <div id="game-board">
@@ -31,6 +31,9 @@
         <div id="current-card">
         </div>
         <p>Your Cards:</p>
+        <form method="post" action="/game/<%=gameId%>/draw" id="draw-form">
+          <input type="submit" value="Draw" />
+        </form>
         <div id="player-cards">
         </div>
       </div>
@@ -45,7 +48,7 @@
 
 </body>
 
-<template id="card-template">
+<template id="board-card-template">
   <div class="card">
     <p></p>
   </div>
@@ -58,8 +61,8 @@
   </div>
 </template>
 
-<template id="test-template">
-  <div>
+<template id="card-template">
+  <div class="card">
     <form class="user-card" method="post">
       <p></p>
       <input type="hidden" id="card_id">
@@ -69,8 +72,8 @@
   </div>
 </template>
 
-<template id="test-template2">
-  <div>
+<template id="card-template2">
+  <div class="change-card">
     <p></p>
     <form class="user-card" method="post">
       <input type="hidden" id="card_id" />

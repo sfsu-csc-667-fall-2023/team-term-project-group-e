@@ -19,7 +19,7 @@ const userSocketConfig = (socketId) => {
     for(const card of data.hand){
       let template;
       if(card.color !== 'none'){
-        template = document.querySelector("#test-template").content.cloneNode(true);
+        template = document.querySelector("#card-template").content.cloneNode(true);
         const form = template.querySelector("form");
         form.action = `/game/${gameId}/play`;
         const p = template.querySelector("p");
@@ -38,7 +38,7 @@ const userSocketConfig = (socketId) => {
 
       } else {
 
-        template = document.querySelector("#test-template2").content.cloneNode(true);
+        template = document.querySelector("#card-template2").content.cloneNode(true);
         const forms = template.querySelectorAll("form");
 
         forms.forEach((form) => {
@@ -77,7 +77,16 @@ const userSocketConfig = (socketId) => {
   userSocket.on(USER_CONSTANTS.MUST_DRAW_CARD, data => {
     // update player's ui to have a draw button so they can draw a card
     console.log({ event: USER_CONSTANTS.MUST_DRAW_CARD, data });
+    const draw = document.querySelector("#draw-form");
+    draw.style.setProperty("display", "block");
   });
+
+  userSocket.on(USER_CONSTANTS.REMOVE_DRAW_CARD, data => {
+    // remove the draw button
+    console.log({ event: USER_CONSTANTS.REMOVE_DRAW_CARD, data });
+    const draw2 = document.querySelector("#draw-form");
+    draw2.style.setProperty("display", "none");
+  })
 }
 
 export default userSocketConfig;
