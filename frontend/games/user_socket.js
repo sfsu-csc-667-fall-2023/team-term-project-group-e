@@ -15,17 +15,38 @@ const userSocketConfig = (socketId) => {
     
     const handContainer = document.querySelector("#player-cards");
     handContainer.innerHTML = '';
+
     for(const card of data.hand){
-      const template = document.querySelector("#card-template").content.cloneNode(true);
-      const div = template.querySelector("div");
-      const p = template.querySelector("p");
+      let template;
       if(card.color !== 'none'){
+        template = document.querySelector("#test-template").content.cloneNode(true);
+        const form = template.querySelector("form");
+        form.action = `/game/${gameId}/play`;
+        const p = template.querySelector("p");
+        const card_id = template.querySelector("#card_id");
+        const color = template.querySelector("#color");
+
         if(card.value !== -1){
           p.innerText = card.color + " " + card.value;
+          card_id.value = card.id;
+          color.value = card.color;
         } else {
           p.innerText = card.color + " " + card.modifier;
+          card_id.value = card.id;
+          color.value = card.color;
         }
+
       } else {
+
+        template = document.querySelector("#test-template2").content.cloneNode(true);
+        const forms = template.querySelectorAll("form");
+        forms.action = `/game/${gameId}/play`;
+
+        const card_id = template.querySelectorAll("#card_id")
+        card_id.value = card.id;
+
+        const p = template.querySelector("p");
+
         if(card.modifier === 'change_color'){
           p.innerText = "Change Color";
         } else {

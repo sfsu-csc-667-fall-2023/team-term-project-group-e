@@ -14,7 +14,7 @@ router.post("/:id/play", (request, response) => play(request, response));
 
 router.post("/:id/draw", (request, response) => draw(request, response));
 
-router.get("/:id/start",  (request, response) => start(request, response));
+router.post("/:id/start",  (request, response) => start(request, response));
 
 router.get("/:id/join", (request, response) => join(request, response));
 

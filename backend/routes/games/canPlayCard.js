@@ -1,13 +1,20 @@
+const { Games } = require("../../db");
+
 // need to send the card objects to this function
-const canPlayCard = (card1, card2) => {
-  if(card1.color === 'none'){
+const canPlayCard = async (cardId, gameId) => {
+  const cardInfo = await Games.getCardInfo(cardId);
+
+  if(cardInfo.color === 'none'){
     return true;
-  } else if(card1.modifier === 'none') {
-    if(card1.color === card2.color || card1.value === card2.value){
-      return true;
-    } 
   } else {
-    if(card1.color === card2.color){
+    const currentColor = await Games.getCurrentColor(gameId);
+    const currentCard = await Games.getFaceUpCard(gameId);
+    const currentCardInfo = await Games.getCardInfo(currentCard.card_id);
+    console.log({ currentCardInfo });
+    console.log({ currentColor });
+    console.log({ cardInfo });
+
+    if(cardInfo.color === currentColor.current_color || cardInfo.value === currentCardInfo.value){
       return true;
     }
   }

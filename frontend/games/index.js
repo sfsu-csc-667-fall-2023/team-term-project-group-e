@@ -13,3 +13,24 @@ document.querySelector("#start-form").addEventListener("submit", (event) => {
   fetch(action.value, { method: method.value });
   return false;
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const playerCards = document.getElementById("player-cards");
+  playerCards.addEventListener('submit', (event) => {
+    if(event.target.tagName.toLowerCase() === 'form'){
+      event.preventDefault();
+      const form = event.target;
+      const { action, method } = form.attributes;
+      const card_id = form.card_id.value;
+      const color = form.color.value;
+      fetch(action.value, { 
+        method: method.value, 
+        headers: {
+          'Content-Type': 'application/json',
+        }, 
+        body: JSON.stringify({card_id, color})
+      });
+      return false;
+    }
+  });
+});

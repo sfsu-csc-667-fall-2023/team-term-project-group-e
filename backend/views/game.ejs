@@ -18,7 +18,7 @@
     <input type="hidden" name="user-socket-id" id="user-socket-id" value="<%= userSocketId %>" />
     <input type="hidden" name="game-id" id="game-id" value="<%= gameId %>" />
 
-    <form method="get" action="/game/<%=gameId%>/start" id="start-form">
+    <form method="post" action="/game/<%=gameId%>/start" id="start-form">
       <input type="submit" value="start" />
     </form>
 
@@ -55,6 +55,43 @@
   <div class="opponent">
     <p id="username"></p>
     <p id="card-count"></p>
+  </div>
+</template>
+
+<template id="test-template">
+  <div>
+    <form class="user-card" method="post">
+      <p></p>
+      <input type="hidden" id="card_id">
+      <input type="hidden" id="color" />
+      <input type="submit" value="Play" />
+    </form>
+  </div>
+</template>
+
+<template id="test-template2">
+  <div>
+    <p></p>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="red" />
+      <input type="submit" value="Red" />
+    </form>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="green" />
+      <input type="submit" value="Green" />
+    </form>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="blue" />
+      <input type="submit" value="Blue" />
+    </form>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="yellow" />
+      <input type="submit" value="Yellow" />
+    </form>
   </div>
 </template>
 
