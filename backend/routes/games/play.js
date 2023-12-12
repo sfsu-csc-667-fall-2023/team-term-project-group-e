@@ -9,12 +9,14 @@ const GAME_CONSTANTS = require("../../../constants/game");
 
 const play = async (request, response) => {
   const { id: userId } = request.session.user;
-  const { game_id: gameId, card_id: cardId } = request.params;
+  const { game_id: gameId } = request.params;
   const { sid: userSocketId } = await Users.getUserSocket(userId);
   const io = request.app.get("io");
 
+  const { card_id: cardId } = request.body;
   console.log({ gameId, cardId });
 
+  // 
   if(cardId < 0){
     console.log("change color card");
     response.status(200).send();
