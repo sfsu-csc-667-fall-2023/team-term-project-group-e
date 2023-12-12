@@ -40,10 +40,12 @@ const userSocketConfig = (socketId) => {
 
         template = document.querySelector("#test-template2").content.cloneNode(true);
         const forms = template.querySelectorAll("form");
-        forms.action = `/game/${gameId}/play`;
 
-        const card_id = template.querySelectorAll("#card_id")
-        card_id.value = card.id;
+        forms.forEach((form) => {
+          const card_id = form.querySelector("#card_id");
+          form.action = `/game/${gameId}/play`;
+          card_id.value = card.id;
+        });
 
         const p = template.querySelector("p");
 

@@ -17,8 +17,6 @@ const play = async (request, response) => {
   const cardId = body.card_id;
   const color = body.color;
 
-  console.log("Card " + cardId + ", Color " + color);
-
   const seat = await Games.getCurrentSeat(gameId);
   if(userId !== seat.current_seat){
     response.status(200).send();
@@ -39,7 +37,8 @@ const play = async (request, response) => {
 
   await Games.setGameCard(0, currentCard.card_id, gameId);   // Set current face up card to 0 (it's in the deck now)
   await Games.setGameCard(-1, cardId, gameId);   // Set the face up card to card_id from request body (change it from user_id to -1)
-  await Games.setCurrentColor(color);
+  await Games.setCurrentColor(color, gameId);
+  console.log({ color });
 
   const cardInfo = await Games.getCardInfo(cardId);
 
@@ -74,11 +73,11 @@ const play = async (request, response) => {
       break;
     case 'change_color':
       // Set new color
-      await Games.setCurrentColor(chosenColor);
+      await Games.setCurrentColor(color);
       break;
     case 'change_color_add_4':
       // Set new color
-      await Games.setCurrentColor(chosenColor);
+      await Games.setCurrentColor(color);
 
       // Move to next player
       const nextPlayer3 = await getNextPlayer(gameId);
@@ -87,7 +86,7 @@ const play = async (request, response) => {
       // Add two random cards to player
       for(let i = 0; i < 4; i++){
         const card = await Games.getRandomCard(gameId);
-        await Games.setGameCard(nextPlayer.user_id, card.card_id, gameId);
+        await Games.setGameCard(nextPlayer3.user_id, card.card_id, gameId);
       }
       break;
   }

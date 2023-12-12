@@ -10,9 +10,6 @@ const canPlayCard = async (cardId, gameId) => {
     const currentColor = await Games.getCurrentColor(gameId);
     const currentCard = await Games.getFaceUpCard(gameId);
     const currentCardInfo = await Games.getCardInfo(currentCard.card_id);
-    console.log({ currentCardInfo });
-    console.log({ currentColor });
-    console.log({ cardInfo });
 
     if(cardInfo.color === currentColor.current_color || cardInfo.value === currentCardInfo.value){
       return true;

@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if(event.target.tagName.toLowerCase() === 'form'){
       event.preventDefault();
       const form = event.target;
-      const { action, method } = form.attributes;
-      const card_id = form.card_id.value;
-      const color = form.color.value;
-      fetch(action.value, { 
-        method: method.value, 
+      const action = form.getAttribute('action');
+      const method = form.getAttribute('method');
+      const card_id = form.querySelector("#card_id").value;
+      const color = form.querySelector("#color").value;
+      fetch(action, { 
+        method: method, 
         headers: {
           'Content-Type': 'application/json',
         }, 
