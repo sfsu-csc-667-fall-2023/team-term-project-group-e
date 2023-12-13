@@ -55,8 +55,13 @@ const gameSocketConfig = (socketId) => {
     const template = document.querySelector("#board-card-template").content.cloneNode(true);
     const p = template.querySelector("p");
     const currentCard = document.querySelector("#current-card");
-    p.innerText = data.faceUpCard.color + " " + data.faceUpCard.value;
-
+    if(data.faceUpCard.modifier === 'none'){
+      p.innerText = data.faceUpCard.color + " " + data.faceUpCard.value;
+    } else if (data.faceUpCard.color === 'none'){
+      p.innerText = data.faceUpColor.current_color;
+    } else {
+      p.innerText = data.faceUpCard.color + " " + data.faceUpCard.modifier;
+    }
     currentCard.appendChild(template);
 
   })

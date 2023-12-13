@@ -8,26 +8,25 @@ const USER_CONSTANTS = require("../../../constants/user");
 const draw = async (request, response) => {
   const { id: userId } = request.session.user;
   const { id: gameId } = request.params;
+  const { sid: userSocketId } = await Users.getUserSocket(userId);
+  const io = request.app.get("io");
 
   // Add a random card to the user's hand in the database.
   const randomCard = await Games.getRandomCard(gameId);
   await Games.setGameCard(userId, randomCard.card_id, gameId);
 
   // Check if that card can be played.
-  const canPlay = canPlayCard(randomCard.card_id, gameId);
-   
+  const canPlay = await canPlayCard(randomCard.card_id, gameId);
+
+  io.to(userSocketId).emit(USER_CONSTANTS.REMOVE_DRAW_CARD, {});
+
   //If the card can't be played, move to the next player.
   if(!canPlay){
+    console.log("The card drawn can not be played.");
     const nextPlayer = await getNextPlayer(gameId);
-    await setNextPlayer(nextPlayer.user_id);
-
-    response.status(200).send();
-    return;
+    console.log({ nextPlayer });
+    await setNextPlayer(nextPlayer.user_id, gameId);
   } 
-
-  const io = request.app.get("io");
-  const { sid: userSocketId } = await Users.getUserSocket(userId);
-  io.to(userSocketId).emit(USER_CONSTANTS.REMOVE_DRAW_CARD, {});
 
   await sendGameState(io, gameId);
 

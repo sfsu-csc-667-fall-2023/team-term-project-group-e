@@ -3,12 +3,12 @@ const { Users } = require("../../db");
 
 const GAME_CONSTANTS = require("../../../constants/game");
 const USER_CONSTANTS = require("../../../constants/user");
+const { checkHand } = require("./checkHand");
 
 const sendGameState = async (io, gameId) => {
   // need to make sure to emit to specific socket later
   const gameSocketId = await Games.getGameSocket(gameId);
 
-  console.log("Sending game state " + gameId);
   // Emit game info (usernames + their card counts) to the game socket.
   const gameInfo = await Games.getGameInfo(parseInt(gameId));
   console.log({ gameInfo });
@@ -16,12 +16,14 @@ const sendGameState = async (io, gameId) => {
  
   // Emit current player to the game socket.
   const currentPlayer = await Games.getCurrentSeat(parseInt(gameId));
+  console.log({ currentPlayer });
   io.emit(GAME_CONSTANTS.USER_CURRENT, { currentPlayer });
 
-  // Emit face up card to the game socket.
+  // Emit face up card info to the game socket.
   const faceUpCardId = await Games.getFaceUpCard(parseInt(gameId));
   const faceUpCard = await Games.getCardInfo(faceUpCardId.card_id);
-  io.emit(GAME_CONSTANTS.FACE_UP_CARD, {faceUpCard});
+  const faceUpColor = await Games.getCurrentColor(gameId);
+  io.emit(GAME_CONSTANTS.FACE_UP_CARD, {faceUpCard, faceUpColor});
 
   // Emit hand info and current / not-current statuses to each player.
   const players = await Games.getUsersInGame(parseInt(gameId));
@@ -40,31 +42,14 @@ const sendGameState = async (io, gameId) => {
 
     // Send status
     if(id === currentPlayer.current_seat){
+      if(!await checkHand(gameId)){
+        io.to(userSocketId).emit(USER_CONSTANTS.MUST_DRAW_CARD, {});        
+      }
       io.to(userSocketId).emit(USER_CONSTANTS.CURRENT);
     } else {
       io.to(userSocketId).emit(USER_CONSTANTS.NOT_CURRENT);
     }
   }
-  console.log("Sent game state " + gameId);
 }
-
-// seat = await Games.getCurrentSeat(gameId);
-//   const hand = await Games.getHandOfPlayer(seat.current_seat, gameId);
-//   let can_play = false;
-//   console.log({ hand });
-//   for(const card_id of hand){
-//     let card = await Games.getCardInfo(card_id.card_id);
-//     console.log("checking ", { card });
-//     if(await canPlayCard(card_id.card_id, gameId)){
-//       can_play = true;
-//       console.log("this card can be played");
-//       break;
-//     }
-//   }
-
-//   if(!can_play){
-//     console.log("Emitting must draw card signal ")
-//     io.to(userSocketId).emit(USER_CONSTANTS.MUST_DRAW_CARD, {});
-//   }
 
 module.exports = { sendGameState };
