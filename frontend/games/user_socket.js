@@ -72,11 +72,19 @@ const userSocketConfig = (socketId) => {
   userSocket.on(USER_CONSTANTS.CANT_PLAY_CARD, data => {
     // communicate to player that they can't play this card
     console.log({ event: USER_CONSTANTS.CANT_PLAY_CARD, data });
+    const p = document.createElement("p");
+    p.innerText = "You can not play this card.";
+    const log = document.getElementById("message-log");
+    log.appendChild(p);
   });
 
   userSocket.on(USER_CONSTANTS.MUST_DRAW_CARD, data => {
     // update player's ui to have a draw button so they can draw a card
     console.log({ event: USER_CONSTANTS.MUST_DRAW_CARD, data });
+    const p = document.createElement("p");
+    p.innerText = "You must draw a card.";
+    const log = document.getElementById("message-log");
+    log.appendChild(p);
     const draw = document.querySelector("#draw-form");
     draw.style.setProperty("display", "block");
   });

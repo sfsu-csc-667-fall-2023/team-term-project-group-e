@@ -43,6 +43,10 @@ const gameSocketConfig = (socketId) => {
   gameSocket.on(GAME_CONSTANTS.USER_CURRENT, data => {
     // update the game log to communicate whose turn it is
     console.log({ event: GAME_CONSTANTS.USER_CURRENT, data });
+    const p = document.createElement("p");
+    p.innerText = "It is " + data.currentPlayer.username + "'s turn.";
+    const log = document.getElementById("message-log");
+    log.appendChild(p);
   });
 
   gameSocket.on(GAME_CONSTANTS.FACE_UP_CARD, data => {
@@ -65,6 +69,20 @@ const gameSocketConfig = (socketId) => {
     currentCard.appendChild(template);
 
   })
+
+  gameSocket.on(GAME_CONSTANTS.WINNER, data => {
+    console.log({ event: GAME_CONSTANTS.WINNER, data});
+    const handContainer = document.querySelector("#player-cards");
+    handContainer.innerHTML = '';
+    const usersContainer = document.getElementById("opponents");
+    usersContainer.innerHTML = '';
+    const currentBoard = document.getElementById("current-card");
+    currentBoard.innerHTML = '';
+    const p = document.createElement("p");
+    p.innerText = data.winner.username + " wins!";
+    currentBoard.appendChild(p);
+
+  });
 
 }
 

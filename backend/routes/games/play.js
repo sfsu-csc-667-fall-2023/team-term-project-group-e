@@ -7,7 +7,6 @@ const { sendGameState } = require("./sendGameState");
 const USER_CONSTANTS = require("../../../constants/user");
 
 const play = async (request, response) => {
-  console.log("Card played");
   const { id: userId } = request.session.user;
   const { id: gameId } = request.params;
   const { sid: userSocketId } = await Users.getUserSocket(userId);
@@ -38,7 +37,6 @@ const play = async (request, response) => {
   await Games.setGameCard(0, currentCard.card_id, gameId);   // Set current face up card to 0 (it's in the deck now)
   await Games.setGameCard(-1, cardId, gameId);   // Set the face up card to card_id from request body (change it from user_id to -1)
   await Games.setCurrentColor(color, gameId);
-  console.log({ color });
 
   const cardInfo = await Games.getCardInfo(cardId);
 

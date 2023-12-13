@@ -30,7 +30,7 @@
         <p>Current Card:</p>
         <div id="current-card">
         </div>
-        <p>Your Cards:</p>
+        <p>Your Cards (<%=user.username%>):</p>
         <form method="post" action="/game/<%=gameId%>/draw" id="draw-form">
           <input type="submit" value="Draw" />
         </form>

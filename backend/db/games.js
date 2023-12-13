@@ -3,6 +3,7 @@ const { addUserToGame } = require("./games/add-user-to-game");
 const { createGame } = require("./games/create-game");
 const { getAvailableGames } = require("./games/get-available-games");
 const { getCardInfo } = require("./games/get-card-info");
+const { getCountOfHand } = require("./games/get-count-of-hand");
 const { getCurrentColor } = require("./games/get-current-color");
 const { getFaceUpCard } = require("./games/get-face-up-card");
 const { getGameDirection } = require("./games/get-game-direction");
@@ -19,6 +20,7 @@ const { getCurrentSeat } = require("./games/get-current-seat");
 const { setCurrentPlayer } = require("./games/set-current-player");
 const { setGameCard } = require("./games/set-game-card");
 const { setGameDirection } = require("./games/set-game-direction");
+const { getUsername } = require("./games/get-username");
 
 // Helper Functions
 const { createShuffledDeck } = require("./games/create-shuffled-deck");
@@ -44,7 +46,6 @@ const initializeGame = async (gameId) => {
   const firstPlayer = await getPlayerBySeat(1, gameId);
   await setCurrentPlayer(firstPlayer.user_id, gameId);
 
-  console.log("Initialized game " + gameId);
 }
 
 module.exports = {
@@ -53,6 +54,7 @@ module.exports = {
   getFaceUpCard,
   getAvailableGames,
   getCardInfo,
+  getCountOfHand,
   getCurrentColor,
   getGameDirection,
   getGameInfo,
@@ -69,4 +71,5 @@ module.exports = {
   setCurrentPlayer,
   setGameCard,
   setGameDirection,
+  getUsername,
 }

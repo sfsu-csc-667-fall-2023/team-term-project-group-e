@@ -13,7 +13,7 @@ const draw = async (request, response) => {
 
   // Add a random card to the user's hand in the database.
   const randomCard = await Games.getRandomCard(gameId);
-  await Games.setGameCard(userId, randomCard.card_id, gameId);
+  await Games.setGameCard(userId, randomCard.card_id, gameId); 
 
   // Check if that card can be played.
   const canPlay = await canPlayCard(randomCard.card_id, gameId);
@@ -22,9 +22,7 @@ const draw = async (request, response) => {
 
   //If the card can't be played, move to the next player.
   if(!canPlay){
-    console.log("The card drawn can not be played.");
     const nextPlayer = await getNextPlayer(gameId);
-    console.log({ nextPlayer });
     await setNextPlayer(nextPlayer.user_id, gameId);
   } 
 

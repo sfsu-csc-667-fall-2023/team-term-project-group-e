@@ -4,19 +4,26 @@ const { Users } = require("../../db");
 const GAME_CONSTANTS = require("../../../constants/game");
 const USER_CONSTANTS = require("../../../constants/user");
 const { checkHand } = require("./checkHand");
+const { checkWinState } = require("./checkWinState");
 
 const sendGameState = async (io, gameId) => {
   // need to make sure to emit to specific socket later
   const gameSocketId = await Games.getGameSocket(gameId);
 
+  const winnerId = await checkWinState(gameId);
+  if(winnerId !== -1){
+    const winner = await Games.getUsername(winnerId);
+    io.emit(GAME_CONSTANTS.WINNER, { winner });
+    return;
+  }
+
   // Emit game info (usernames + their card counts) to the game socket.
   const gameInfo = await Games.getGameInfo(parseInt(gameId));
-  console.log({ gameInfo });
   io.emit(GAME_CONSTANTS.GAME_INFO, { gameInfo });  
  
   // Emit current player to the game socket.
-  const currentPlayer = await Games.getCurrentSeat(parseInt(gameId));
-  console.log({ currentPlayer });
+  const currentPlayerId = await Games.getCurrentSeat(parseInt(gameId));
+  const currentPlayer = await Games.getUsername(currentPlayerId.current_seat);
   io.emit(GAME_CONSTANTS.USER_CURRENT, { currentPlayer });
 
   // Emit face up card info to the game socket.
