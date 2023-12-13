@@ -1,0 +1,60 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+Table users {
+  id id 
+  email varchar(256)
+  password char(60)
+  created_at timestamp
+  username varchar(256)
+}
+
+Table game_users {
+  user_id int // the user id referred
+  game_id int // what game the user is in
+  seat int  // what seat the user is in
+}
+
+Table games {
+  id id // id of game
+  game_socket_id varchar // socket of game
+  created_at timestamp // timestamp of game 
+  current_seat int // holds the player id of whose turn it is
+  direction varchar // direction of play
+  initialized bool // whether game is running or not
+}
+
+Table cards {
+  id id
+  value int
+  color varchar
+  modifier varchar
+}
+
+Table game_cards {
+  user_id int     // user id referred
+  game_id int     // what game the user is in
+  card_id int     // what card the user has
+  card_order int  // order of cards in game
+}
+
+game --> 
+  set up databases
+  send hands to players
+  send signal to players whether they are active or not
+
+player -->
+  play card or draw card 
+  send to game backend which action played
+
+game -->
+  react to action played
+  update databases
+  update hands of players (updater all player hands or only hands updated?)
+  send signal to players whether they are active or not
+
+
+card ids:
+0 = in deck
+-1 = face up card
+
+1 - infinity = in user hand

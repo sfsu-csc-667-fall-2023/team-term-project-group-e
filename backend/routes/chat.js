@@ -16,7 +16,7 @@ const handler = (request, response) => {
     hash: createHash('sha256').update(email).digest('hex'),
   });
 
-  response.status(200);
+  response.status(200).send();
 }
 
 router.post("/chat", handler);

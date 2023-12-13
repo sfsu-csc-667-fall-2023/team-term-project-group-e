@@ -1,0 +1,60 @@
+#start-form {
+  display: none;
+}
+
+#game-board {
+  display: flex;
+  min-width: 100%;
+  min-height: fit-content;
+  border: 1px black solid;
+}
+
+#message-log {
+  border: 1px black solid;
+  min-width: 25%;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  border: 1px black solid;
+  min-width: 75%;
+}
+
+#opponents {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px black solid; */
+  min-height: 5em;
+}
+
+.opponent {
+  border: 1px black solid;
+  width: 5em;
+}
+
+#current-card {
+  /* border: 1px black solid; */
+  min-height: 7em;
+}
+
+#player-cards {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px black solid; */
+  min-height: 7em;
+}
+
+.card {
+  border: 1px black solid;
+  width: 5em;
+  height: 7em;
+}
+
+.change-card {
+  border: 1px black solid;
+}
+
+#draw-form {
+  display: none;
+}

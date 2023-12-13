@@ -70,11 +70,11 @@ const io = new Server(httpServer);
 io.engine.use(sessionMiddleware);
 app.set("io", io);
 
-io.on("connection", socket => {
+io.on("connection", (socket) => {
   socket.join(socket.request.session.id);
 
-  if(socket.handshake.query !== undefined){
-    socket.join(socket.handshake.query.gameSocketId);
+  if (socket.handshake.query !== undefined) {
+    socket.join(socket.handshake.query.id);
   }
 });
 

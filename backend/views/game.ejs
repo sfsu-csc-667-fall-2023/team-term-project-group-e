@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>Game <%=id%>
+  <title>Game <%=gameId%>
   </title>
   <script src="/scripts/chat.js" defer></script>
   <script src="/scripts/games.js" defer></script>
@@ -12,14 +12,90 @@
 
 <body>
   <main>
-    <p>Game Room <%=id%>
+    <p>Game Room <%=gameId%>
     </p>
     <input type="hidden" name="game-socket-id" id="game-socket-id" value="<%= gameSocketId %>" />
+    <input type="hidden" name="user-socket-id" id="user-socket-id" value="<%= userSocketId %>" />
+    <input type="hidden" name="game-id" id="game-id" value="<%= gameId %>" />
 
-    <%- include("partials/chat", { roomId: id }); %>
+    <form method="post" action="/game/<%=gameId%>/start" id="start-form">
+      <input type="submit" value="Start" />
+    </form>
+
+    <div id="game-board">
+      <div id="game">
+        <p>User Cards:</p>
+        <div id="opponents">
+        </div>
+        <p>Current Card:</p>
+        <div id="current-card">
+        </div>
+        <p>Your Cards (<%=user.username%>):</p>
+        <form method="post" action="/game/<%=gameId%>/draw" id="draw-form">
+          <input type="submit" value="Draw" />
+        </form>
+        <div id="player-cards">
+        </div>
+      </div>
+      <div id="message-log">
+        <p>Game Log</p>
+      </div>
+    </div>
+
+    <%- include("partials/chat", { roomId: gameId }); %>
       <a href="/lobby">Back to Lobby</a>
   </main>
 
 </body>
+
+<template id="board-card-template">
+  <div class="card">
+    <p></p>
+  </div>
+</template>
+
+<template id="opponent-template">
+  <div class="opponent">
+    <p id="username"></p>
+    <p id="card-count"></p>
+  </div>
+</template>
+
+<template id="card-template">
+  <div class="card">
+    <form class="user-card" method="post">
+      <p></p>
+      <input type="hidden" id="card_id">
+      <input type="hidden" id="color" />
+      <input type="submit" value="Play" />
+    </form>
+  </div>
+</template>
+
+<template id="card-template2">
+  <div class="change-card">
+    <p></p>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="red" />
+      <input type="submit" value="Red" />
+    </form>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="green" />
+      <input type="submit" value="Green" />
+    </form>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="blue" />
+      <input type="submit" value="Blue" />
+    </form>
+    <form class="user-card" method="post">
+      <input type="hidden" id="card_id" />
+      <input type="hidden" id="color" value="yellow" />
+      <input type="submit" value="Yellow" />
+    </form>
+  </div>
+</template>
 
 </html>
