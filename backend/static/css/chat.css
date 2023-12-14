@@ -21,6 +21,11 @@
   float: left;
 }
 
+.chat-input {
+  display: flex;
+  justify-content: center;
+}
+
 .input-message {
   margin: 5px 2px;
   width: 90%;

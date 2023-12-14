@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<link href="../css/login.css" rel="stylesheet" type="text/css">
+
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+
+    <body>
+    <main>
+        <%- include("partials/navbar"); %>
+        
+        <form class="login-form" method="POST" action="/auth/login">
+            <div class="login-form__content">
+                <div class="login-form__header">Login to your account</div>
+                <input class="login-form__input" type="text" name="dc_username" 
+                    placeholder="Email"
+                    name="email"
+                    type="email"
+                    id="email"
+                />
+                <input class="login-form__input" type="password" name="dc_username" placeholder="Password" 
+                    name="password"
+                    type="password"
+                    id="pwd"
+                />
+                <button class="login-form__button" type="submit">Login</button>
+                
+                <Link to='/register'>
+                <div class="login-form__links">
+                    <a class="login-form__link" href="/signup">Register</a>
+                </div>
+                </Link>
+            </div>
+        </form>
+    </main>
+    </body>
+</html>

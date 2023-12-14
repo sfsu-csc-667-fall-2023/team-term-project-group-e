@@ -1,7 +1,8 @@
 .navbar {
   display: flex;
   border-radius: 5px;
-  background-color: lightblue;
+  background-color: white;
+  align-items: center;
 }
 
 .navbar-title {
@@ -11,12 +12,31 @@
 .navbar-link-container {
   display: flex;
 }
-
+/* dive with <a> */
 .navbar-link {
   margin: auto 1em auto 1em;
+}
+/* <a> in the link div */
+.navLink {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .navbar-name {
   margin-left: auto;
   margin-right: 1em;
+  align-items: center;
 }
+
+.navbar img {
+  border: none;
+  width: auto; 
+  height: auto; 
+  max-height: 100px; 
+  background: none;
+  box-shadow: none;
+  margin-top: 8px;
+}
+
