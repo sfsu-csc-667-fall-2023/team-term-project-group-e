@@ -4,14 +4,14 @@ const { sendGameState } = require("./sendGameState");
 
 const start = async (request, response) => {
   const { id: gameId } = request.params;
-  const gameSocketId = await Games.getGameSocket(gameId);
+  const { game_socket_id: gameSocketId }= await Games.getGameSocket(gameId);
 
   // Initialize game in database
   await Games.initializeGame(gameId);
 
   // Send start signal to game
   const io = request.app.get("io");
-  io.emit(GAME_CONSTANTS.START, {});
+  io.to(gameSocketId).emit(GAME_CONSTANTS.START, {});
 
   await sendGameState(io, gameId);
 
