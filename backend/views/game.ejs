@@ -38,7 +38,6 @@
         </div>
       </div>
       <div id="message-log">
-        <p>Game Log</p>
       </div>
     </div>
 
@@ -67,7 +66,7 @@
       <p></p>
       <input type="hidden" id="card_id">
       <input type="hidden" id="color" />
-      <input type="submit" value="Play" />
+      <input type="submit" id="submit" value="Play" />
     </form>
   </div>
 </template>
@@ -75,26 +74,28 @@
 <template id="card-template2">
   <div class="change-card">
     <p></p>
-    <form class="user-card" method="post">
-      <input type="hidden" id="card_id" />
-      <input type="hidden" id="color" value="red" />
-      <input type="submit" value="Red" />
-    </form>
-    <form class="user-card" method="post">
-      <input type="hidden" id="card_id" />
-      <input type="hidden" id="color" value="green" />
-      <input type="submit" value="Green" />
-    </form>
-    <form class="user-card" method="post">
-      <input type="hidden" id="card_id" />
-      <input type="hidden" id="color" value="blue" />
-      <input type="submit" value="Blue" />
-    </form>
-    <form class="user-card" method="post">
-      <input type="hidden" id="card_id" />
-      <input type="hidden" id="color" value="yellow" />
-      <input type="submit" value="Yellow" />
-    </form>
+    <div class="grid">
+      <form class="user-card red" method="post">
+        <input type="hidden" id="card_id" />
+        <input type="hidden" id="color" value="red" />
+        <input type="submit" class="play-button red" value="Red" />
+      </form>
+      <form class="user-card green" method="post">
+        <input type="hidden" id="card_id" />
+        <input type="hidden" id="color" value="green" />
+        <input type="submit" class="play-button green" value="Green" />
+      </form>
+      <form class="user-card blue" method="post">
+        <input type="hidden" id="card_id" />
+        <input type="hidden" id="color" value="blue" />
+        <input type="submit" class="play-button blue" value="Blue" />
+      </form>
+      <form class="user-card yellow" method="post">
+        <input type="hidden" id="card_id" />
+        <input type="hidden" id="color" value="yellow" />
+        <input type="submit" class="play-button yellow" value="Yellow" />
+      </form>
+    </div>
   </div>
 </template>
 

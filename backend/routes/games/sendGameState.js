@@ -48,13 +48,13 @@ const sendGameState = async (io, gameId) => {
     io.to(userSocketId).emit(USER_CONSTANTS.HAND, { hand });
 
     // Send status
-    if(id === currentPlayer.current_seat){
+    if(id === currentPlayerId.current_seat){
       if(!await checkHand(gameId)){
         io.to(userSocketId).emit(USER_CONSTANTS.MUST_DRAW_CARD, {});        
       }
-      io.to(userSocketId).emit(USER_CONSTANTS.CURRENT);
+      io.to(userSocketId).emit(USER_CONSTANTS.CURRENT, {});
     } else {
-      io.to(userSocketId).emit(USER_CONSTANTS.NOT_CURRENT);
+      io.to(userSocketId).emit(USER_CONSTANTS.NOT_CURRENT, {});
     }
   }
 }

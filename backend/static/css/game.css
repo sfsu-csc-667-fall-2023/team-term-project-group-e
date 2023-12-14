@@ -12,6 +12,7 @@
 #message-log {
   border: 1px black solid;
   min-width: 25%;
+  text-align: center;
 }
 
 #game {
@@ -24,37 +25,86 @@
 #opponents {
   display: flex;
   flex-direction: row;
-  /* border: 1px black solid; */
   min-height: 5em;
 }
 
 .opponent {
   border: 1px black solid;
   width: 5em;
+  text-align: center;
 }
 
 #current-card {
-  /* border: 1px black solid; */
   min-height: 7em;
 }
 
 #player-cards {
   display: flex;
   flex-direction: row;
-  /* border: 1px black solid; */
-  min-height: 7em;
+  height: 8em;
 }
 
 .card {
   border: 1px black solid;
-  width: 5em;
-  height: 7em;
+  width: 6em;
+  height: 8em;
+  text-align: center;
 }
 
 .change-card {
   border: 1px black solid;
+  width: 6em;
+  height: 8em;
+}
+
+.grid {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  width: 100%;
+}
+
+.user-card {
+  width: fit-content;
+  margin: auto;
+  text-align: center;
 }
 
 #draw-form {
   display: none;
+}
+
+.play-button {
+  width: 3.5em;
+}
+
+.red {
+  background-color: lightcoral;
+}
+
+.green {
+  background-color: lightgreen;
+}
+
+.blue {
+  background-color: lightblue;
+}
+
+.yellow {
+  background-color: lightgoldenrodyellow;
+}
+
+.red-text {
+  color: red;
+}
+
+.green-text {
+  color: green
+}
+
+.blue-text {
+  color: blue;
+}
+
+.yellow-text {
+  color: yellow;
 }

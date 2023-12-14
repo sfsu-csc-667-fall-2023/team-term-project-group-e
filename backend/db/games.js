@@ -5,6 +5,7 @@ const { getAvailableGames } = require("./games/get-available-games");
 const { getCardInfo } = require("./games/get-card-info");
 const { getCountOfHand } = require("./games/get-count-of-hand");
 const { getCurrentColor } = require("./games/get-current-color");
+const { getCurrentSeat } = require("./games/get-current-seat");
 const { getFaceUpCard } = require("./games/get-face-up-card");
 const { getGameDirection } = require("./games/get-game-direction");
 const { getGameInfo } = require("./games/get-game-info");
@@ -14,13 +15,12 @@ const { getPlayerBySeat } = require("./games/get-player-by-seat");
 const { getRandomCard } = require("./games/get-random-card");
 const { getSeatByPlayer } = require("./games/get-seat-by-player");
 const { getUserCount } = require("./games/get-user-count");
+const { getUsername } = require("./games/get-username");
 const { getUsersInGame } = require("./games/get-users-in-game");
 const { setCurrentColor } = require("./games/set-current-color");
-const { getCurrentSeat } = require("./games/get-current-seat");
 const { setCurrentPlayer } = require("./games/set-current-player");
 const { setGameCard } = require("./games/set-game-card");
 const { setGameDirection } = require("./games/set-game-direction");
-const { getUsername } = require("./games/get-username");
 
 // Helper Functions
 const { createShuffledDeck } = require("./games/create-shuffled-deck");
@@ -51,11 +51,12 @@ const initializeGame = async (gameId) => {
 module.exports = {
   addUserToGame,
   createGame,
-  getFaceUpCard,
   getAvailableGames,
   getCardInfo,
   getCountOfHand,
   getCurrentColor,
+  getCurrentSeat,
+  getFaceUpCard,
   getGameDirection,
   getGameInfo,
   getGameSocket,
@@ -64,12 +65,11 @@ module.exports = {
   getRandomCard,
   getSeatByPlayer,
   getUserCount,
+  getUsername,
   getUsersInGame,
-  getCurrentSeat,
   initializeGame,
   setCurrentColor,
   setCurrentPlayer,
   setGameCard,
   setGameDirection,
-  getUsername,
 }

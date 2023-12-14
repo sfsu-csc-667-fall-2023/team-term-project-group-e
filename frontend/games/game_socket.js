@@ -43,10 +43,16 @@ const gameSocketConfig = (socketId) => {
   gameSocket.on(GAME_CONSTANTS.USER_CURRENT, data => {
     // update the game log to communicate whose turn it is
     console.log({ event: GAME_CONSTANTS.USER_CURRENT, data });
+
+    const currentTime = new Date(Date.now());
+    const currentHour = currentTime.getHours();
+    const currentMinutes = currentTime.getMinutes();
+
     const p = document.createElement("p");
-    p.innerText = "It is " + data.currentPlayer.username + "'s turn.";
+    p.innerText = "[" + currentHour + ":" + currentMinutes + "] It is " + data.currentPlayer.username + "'s turn.";
     const log = document.getElementById("message-log");
-    log.appendChild(p);
+    const firstChild = log.firstChild;
+    log.insertBefore(p, firstChild);
   });
 
   gameSocket.on(GAME_CONSTANTS.FACE_UP_CARD, data => {
@@ -60,12 +66,35 @@ const gameSocketConfig = (socketId) => {
     const p = template.querySelector("p");
     const currentCard = document.querySelector("#current-card");
     if(data.faceUpCard.modifier === 'none'){
-      p.innerText = data.faceUpCard.color + " " + data.faceUpCard.value;
-    } else if (data.faceUpCard.color === 'none'){
-      p.innerText = data.faceUpColor.current_color;
+      p.innerText = data.faceUpCard.color[0].toUpperCase() + data.faceUpCard.color.substring(1) + " " + data.faceUpCard.value;
+      p.classList.add(data.faceUpCard.color + "-text");
     } else {
-      p.innerText = data.faceUpCard.color + " " + data.faceUpCard.modifier;
+      if (data.faceUpCard.color === 'none'){
+        p.innerText = data.faceUpColor.current_color[0].toUpperCase() + data.faceUpColor.current_color.substring(1) + " ";
+        p.classList.add(data.faceUpColor.current_color + "-text");
+      } else {
+        p.innerText = data.faceUpCard.color[0].toUpperCase() + data.faceUpCard.color.substring(1) + " ";
+        p.classList.add(data.faceUpCard.color + "-text");
+      }
+      switch(data.faceUpCard.modifier){
+        case 'skip':
+            p.innerText += "Skip";
+          break;
+        case 'reverse':
+            p.innerText += "Reverse";
+          break;
+        case 'add_2':
+            p.innerText += "Add 2";
+          break;
+        case 'change_color':
+            p.innerText += "Change Color";
+          break;
+        case 'change_color_add_4':
+            p.innerText += "Change Color + 4"
+          break;
+      }
     }
+    
     currentCard.appendChild(template);
 
   })

@@ -20,21 +20,40 @@ const userSocketConfig = (socketId) => {
       let template;
       if(card.color !== 'none'){
         template = document.querySelector("#card-template").content.cloneNode(true);
+
         const form = template.querySelector("form");
-        form.action = `/game/${gameId}/play`;
         const p = template.querySelector("p");
         const card_id = template.querySelector("#card_id");
         const color = template.querySelector("#color");
+        const submit = form.querySelector("#submit");
+
+        form.action = `/game/${gameId}/play`;
+        submit.classList.add(card.color);
+
+        card_id.value = card.id;
+        color.value = card.color;
+
+        p.innerText = card.color[0].toUpperCase() + card.color.substring(1) + " ";
+
 
         if(card.value !== -1){
-          p.innerText = card.color + " " + card.value;
-          card_id.value = card.id;
-          color.value = card.color;
+          p.innerText += card.value;
         } else {
-          p.innerText = card.color + " " + card.modifier;
-          card_id.value = card.id;
-          color.value = card.color;
+          p.innerText = card.color[0].toUpperCase() + card.color.substring(1) + " ";
+          switch(card.modifier){
+            case 'skip':
+                p.innerText += "Skip";
+              break;
+            case 'reverse':
+                p.innerText += "Reverse";
+              break;
+            case 'add_2':
+                p.innerText += "Add 2";
+              break;
+          }
         }
+        card_id.value = card.id;
+        color.value = card.color;
 
       } else {
 
@@ -73,18 +92,21 @@ const userSocketConfig = (socketId) => {
     // communicate to player that they can't play this card
     console.log({ event: USER_CONSTANTS.CANT_PLAY_CARD, data });
     const p = document.createElement("p");
-    p.innerText = "You can not play this card.";
+    p.innerText = "[PERSONAL] You can not play this card.";
     const log = document.getElementById("message-log");
-    log.appendChild(p);
+    const firstChild = log.firstChild;
+    log.insertBefore(p, firstChild);
   });
 
   userSocket.on(USER_CONSTANTS.MUST_DRAW_CARD, data => {
     // update player's ui to have a draw button so they can draw a card
     console.log({ event: USER_CONSTANTS.MUST_DRAW_CARD, data });
     const p = document.createElement("p");
-    p.innerText = "You must draw a card.";
+    p.innerText = "[PERSONAL] You must draw a card.";
     const log = document.getElementById("message-log");
-    log.appendChild(p);
+    const firstChild = log.firstChild;
+    log.insertBefore(p, firstChild);
+
     const draw = document.querySelector("#draw-form");
     draw.style.setProperty("display", "block");
   });

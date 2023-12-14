@@ -44,10 +44,6 @@ router.post("/login", async (request, response) => {
         email
       }    
 
-      const test = request.session.user;
-
-      console.log({ test });
-
       response.redirect("/lobby");
       return;
     } else {
