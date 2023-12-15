@@ -1,10 +1,25 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* background-image: url('../uno-lobby.png'); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; 
+  margin: 0;
+}
+
 h2 {
   text-align: center;
   margin: 1rem 0;
 }
 
 .column {
-  float: left;
+  float: middle;
   width: 50%;
   border: 1px solid black;
   border-radius: 5px;
@@ -15,4 +30,36 @@ h2 {
 .flexbox {
   display: flex;
   margin: 0 10%;
+}
+
+#title {
+  text-align: center;
+}
+
+.createbtn {
+  background-color: #008000;
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.createBtnForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+#game-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.game-list-ul {
+  text-align: center;
+  padding: 0px;
 }

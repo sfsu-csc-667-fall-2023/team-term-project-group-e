@@ -12,30 +12,27 @@
 <body>
   <main>
     <%- include("partials/navbar"); %>
-
-      <h1>Lobby</h1>
+      <h1 id="title">Lobby</h1>
       <div class="flexbox">
         <div class="column games-column">
           <h2>Available Games</h2>
+          <form action="/game/create" method="get" class="createBtnForm">
+            <button class="createbtn" type="submit">Create New Game</button>
+          </form>
           <section id="game-list">
-            <ul>
+            <ul class="game-list-ul">
               <% availableGames.forEach((game)=> { %>
-                <li>
-                  <a href="/game/<%= game.id %>/join">Join <%= game.id%></a>
-                </li>
-                <% }); %>
+                <a href="/game/">Join <%= game.id%></a>
+              <% }); %>
             </ul>
           </section>
 
           <template id="join-game-entry">
             <li>
-              <a href=""></a>
+              <a href="">hello</a>
             </li>
           </template>
 
-          <form action="/game/create" method="get">
-            <button type="submit">Create New Game</button>
-          </form>
         </div>
         <div class="column">
           <%- include("partials/chat", {roomId: 0}) %>

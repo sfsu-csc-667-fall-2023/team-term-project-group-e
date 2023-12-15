@@ -1,28 +1,47 @@
 <!DOCTYPE html>
-<link href="/css/signup.css" rel="stylesheet" type="text/css">
+<link href="/css/home.css" rel="stylesheet" type="text/css">
+
 <html>
+    <head>
+        <title>Register/title>
+    </head>
 
-<head>
-  <title>Sign Up</title>
-</head>
+    <body>
+    <main>
+        <%- include("partials/navbar"); %>
+        <div class="center-container">
+            <form class="login-form" method="POST" action="/auth/login">
+                <div class="login-form__content">
+                    <div class="login-form__header">Register an account</div>
+                    <input class="login-form__input"
+                        placeholder="Username" 
+                        name="username" 
+                        type="text"
+                        id="username" 
+                    />
 
-<body>
-  <main>
-    <%- include("partials/navbar"); %>
-      <p class="welcome-text">Register here:</p>
-
-      <form class="signup-form" method="post" action="/auth/register">
-        <legend>Sign Up Form</legend>
-        <label>Email:</Label><br>
-        <input name="email" type="email" placeholder="Email"><br>
-        <label>Username:</Label><br>
-        <input name="username" type="text" placeholder="Username"><br>
-        <label>Password:</label><br>
-        <input name="password" type="password" placeholder="Password"><br>
-        <input type="submit" value="Register">
-      </form>
-  </main>
-
-</body>
-
+                    <input class="login-form__input" 
+                        placeholder="Email"
+                        name="email"
+                        type="email"
+                        id="email"
+                    />
+                    <input class="login-form__input" 
+                        placeholder="Password" 
+                        name="password"
+                        type="password"
+                        id="pwd"
+                    />
+                    <button class="login-form__button" type="submit">Register</button>
+                    
+                    <Link to='/register'>
+                    <div class="login-form__links">
+                        <a class="login-form__link" href="/login">Login</a>
+                    </div>
+                    </Link>
+                </div>
+            </form>
+        </div>
+    </main>
+    </body>
 </html>

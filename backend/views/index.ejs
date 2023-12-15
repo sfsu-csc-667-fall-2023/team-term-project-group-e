@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<link href="/css/lobby.css" rel="stylesheet" type="text/css">
+<link href="/css/chat.css" rel="stylesheet" type="text/css">
+<link href="/css/navbar.css" rel="stylesheet" type="text/css">
+<link href="/css/game.css" rel="stylesheet" type="text/css">
+<!-- <link href="/css/home.css" rel="stylesheet" type="text/css"> -->
+
+<html>
+
+<head>
+  <title>Game id</title>
+  <script src="/scripts/chat.js" defer></script>
+  <script src="/scripts/lobby.js" defer></script>
+  <script src="/scripts/games.js" defer></script>
+</head>
+
+<body>
+  <main>
+
+
+      <div class="navbar">
+        <img src="../UNO_Logo.jpg" alt="logo" /> 
+        <div class="navbar-link-container">
+          <div class="navbar-link">
+            <a class="navLink" href="/">Home</a>
+          </div>
+          <div class="navbar-link">
+            <a  class="navLink" href="/lobby">Lobby</a>
+          </div>
+          <div class="navbar-link">
+            <a  class="navLink" href="/auth">Sign Up</a>
+          </div>
+            <div class="navbar-link">
+              <a  class="navLink" href="/auth/logout">Log out</a>
+            </div>
+        </div>
+          <div class="navbar-name">
+            <h3>
+              DDonuts06
+            </h3>
+          </div>
+      </div>
+      
+      <h1 id="title">Lobby</h1>
+      <div class="flexbox">
+        <div class="column games-column">
+          <h2>Available Games</h2>
+          <form action="/game/create" method="get" class="createBtnForm">
+            <button class="createbtn" type="submit">Create New Game</button>
+          </form>
+          <section id="game-list">
+            <ul class="game-list-ul">
+                <a href="/game/">Join</a>
+            </ul>
+          </section>
+
+          <template id="join-game-entry">
+            <li>
+              <a href="">hello</a>
+            </li>
+          </template>
+
+        </div>
+        <div class="column">
+            <input type="hidden" name="room-id" id="room-id" value="" />
+
+            <div class="chat-container">
+              <h2>Chat</h2>
+              <div id="chat-window">
+              </div>
+              <div class="chat-input">
+                <input class="input-message" type="text" id="message" placeholder="Message" />
+              </div>
+            </div>
+
+            <template id="message-template">
+              <div class="message">
+                <img class="message-avatar" src="" alt="" />
+                <p></p>
+              </div>
+            </template>
+        </div>
+      </div>
+      
+      
+    </main>
+  </body>
+
+</html>

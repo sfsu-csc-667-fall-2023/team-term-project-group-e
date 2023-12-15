@@ -1,28 +1,28 @@
 <link href="/css/navbar.css" rel="stylesheet" type="text/css">
 
 <div class="navbar">
-  <p class="navbar-title">UNO</p>
+  <img src="../UNO_Logo.jpg" alt="logo" /> 
   <div class="navbar-link-container">
     <div class="navbar-link">
-      <a href="/">Home</a>
+      <a class="navLink" href="/">Home</a>
     </div>
     <div class="navbar-link">
-      <a href="/lobby">Lobby</a>
+      <a class="navLink" href="/lobby">Lobby</a>
     </div>
     <div class="navbar-link">
-      <a href="/auth">Sign Up</a>
+      <a class="navLink" href="/auth">Sign Up</a>
     </div>
     <% if(user !==undefined){%>
       <div class="navbar-link">
-        <a href="/auth/logout">Log out</a>
+        <a class="navLink" href="/auth/logout">Log out</a>
       </div>
       <% } %>
   </div>
   <% if(user !==undefined){ %>
     <div class="navbar-name">
-      <p>
+      <h3>
         <%=user.username%>
-      </p>
+      </h3>
     </div>
     <% } %>
 </div>

@@ -10,17 +10,30 @@
 <body>
   <main>
     <%- include("partials/navbar"); %>
-      <p class="welcome-text">Welcome to Uno! Login here:
-      </p>
 
       <form class="login-form" method="POST" action="/auth/login">
-        <legend>Login Form</legend>
-        <label>Email:</Label><br>
-        <input name="email" type="email" placeholder="Email"><br>
-        <label>Password:</label><br>
-        <input name="password" type="password" placeholder="Password"><br>
-        <input type="submit" value="Login">
-      </form>
+        <div class="login-form__content">
+            <div class="login-form__header">Login to your account</div>
+            <input class="login-form__input" type="text" name="dc_username" 
+                placeholder="Email"
+                name="email"
+                type="email"
+                id="email"
+            />
+            <input class="login-form__input" type="password" name="dc_username" placeholder="Password" 
+                name="password"
+                type="password"
+                id="pwd"
+            />
+            <button class="login-form__button" type="submit">Login</button>
+            
+            <Link to='/register'>
+            <div class="login-form__links">
+                <a class="login-form__link" href="/signup">Register</a>
+            </div>
+            </Link>
+        </div>
+    </form>
 
       <% if (error !==undefined){ %>
         <p class="error">
