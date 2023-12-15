@@ -3,6 +3,7 @@
 <link href="/css/chat.css" rel="stylesheet" type="text/css">
 <link href="/css/navbar.css" rel="stylesheet" type="text/css">
 <link href="/css/game.css" rel="stylesheet" type="text/css">
+<!-- <link href="/css/home.css" rel="stylesheet" type="text/css"> -->
 
 <html>
 
@@ -15,6 +16,8 @@
 
 <body>
   <main>
+
+
       <div class="navbar">
         <img src="../UNO_Logo.jpg" alt="logo" /> 
         <div class="navbar-link-container">
@@ -37,113 +40,50 @@
             </h3>
           </div>
       </div>
-
-      <!-- game room -->
-      <p>Game Room</p>
-      <input type="hidden" name="game-socket-id" id="game-socket-id" value="" />
-      <input type="hidden" name="user-socket-id" id="user-socket-id" value="" />
-      <input type="hidden" name="game-id" id="game-id" value="" />
-
-      <form method="post" action="/game/start" id="start-form">
-        <input type="submit" value="Start" />
-      </form>
-
-      <div id="game-board">
-        <div id="game">
-          <p>User Cards:</p>
-          <div id="opponents">
-          </div>
-          <p>Current Card:</p>
-          <div id="current-card">
-          </div>
-          <p>Your Cards username:</p>
-          <form method="post" action="/game/draw" id="draw-form">
-            <input type="submit" value="Draw" />
+      
+      <h1 id="title">Lobby</h1>
+      <div class="flexbox">
+        <div class="column games-column">
+          <h2>Available Games</h2>
+          <form action="/game/create" method="get" class="createBtnForm">
+            <button class="createbtn" type="submit">Create New Game</button>
           </form>
-          <div id="player-cards">
-          </div>
+          <section id="game-list">
+            <ul class="game-list-ul">
+                <a href="/game/">Join</a>
+            </ul>
+          </section>
+
+          <template id="join-game-entry">
+            <li>
+              <a href="">hello</a>
+            </li>
+          </template>
+
         </div>
-        <div id="message-log">
-          <p>Game Log</p>
+        <div class="column">
+            <input type="hidden" name="room-id" id="room-id" value="" />
+
+            <div class="chat-container">
+              <h2>Chat</h2>
+              <div id="chat-window">
+              </div>
+              <div class="chat-input">
+                <input class="input-message" type="text" id="message" placeholder="Message" />
+              </div>
+            </div>
+
+            <template id="message-template">
+              <div class="message">
+                <img class="message-avatar" src="" alt="" />
+                <p></p>
+              </div>
+            </template>
         </div>
       </div>
-
-      <div class="column">
-        <input type="hidden" name="room-id" id="room-id" value="" />
-
-        <div class="chat-container">
-          <h2>Chat</h2>
-          <div id="chat-window">
-          </div>
-          <div class="chat-input">
-            <input class="input-message" type="text" id="message" placeholder="Message" />
-          </div>
-        </div>
-
-        <template id="message-template">
-          <div class="message">
-            <img class="message-avatar" src="" alt="" />
-            <p></p>
-          </div>
-        </template>
-      </div>
-        <a href="/lobby">Back to Lobby</a>
       
       
-      <template id="board-card-template">
-        <div class="card">
-          <p></p>
-        </div>
-      </template>
-      
-      <template id="opponent-template">
-        <div class="opponent">
-          <p id="username"></p>
-          <p id="card-count"></p>
-        </div>
-      </template>
-      
-      <template id="card-template">
-        <div class="card">
-          <form class="user-card" method="post">
-            <p></p>
-            <input type="hidden" id="card_id">
-            <input type="hidden" id="color" />
-            <input type="submit" value="Play" />
-          </form>
-        </div>
-      </template>
-      
-      <template id="card-template2">
-        <div class="change-card">
-          <p></p>
-          <form class="user-card" method="post">
-            <input type="hidden" id="card_id" />
-            <input type="hidden" id="color" value="red" />
-            <input type="submit" value="Red" />
-          </form>
-          <form class="user-card" method="post">
-            <input type="hidden" id="card_id" />
-            <input type="hidden" id="color" value="green" />
-            <input type="submit" value="Green" />
-          </form>
-          <form class="user-card" method="post">
-            <input type="hidden" id="card_id" />
-            <input type="hidden" id="color" value="blue" />
-            <input type="submit" value="Blue" />
-          </form>
-          <form class="user-card" method="post">
-            <input type="hidden" id="card_id" />
-            <input type="hidden" id="color" value="yellow" />
-            <input type="submit" value="Yellow" />
-          </form>
-        </div>
-      </template>
-
-      
-      </div>
-  </main>
-
-</body>
+    </main>
+  </body>
 
 </html>

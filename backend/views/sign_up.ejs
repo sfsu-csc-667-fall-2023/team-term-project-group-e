@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<link href="../css/login.css" rel="stylesheet" type="text/css">
+<link href="/css/home.css" rel="stylesheet" type="text/css">
 
 <html>
     <head>
@@ -9,37 +9,39 @@
     <body>
     <main>
         <%- include("partials/navbar"); %>
-        <form class="login-form" method="POST" action="/auth/login">
-            <div class="login-form__content">
-                <div class="login-form__header">Register an account</div>
-                <input class="login-form__input"
-                    placeholder="Username" 
-                    name="username" 
-                    type="text"
-                    id="username" 
-                />
+        <div class="center-container">
+            <form class="login-form" method="POST" action="/auth/login">
+                <div class="login-form__content">
+                    <div class="login-form__header">Register an account</div>
+                    <input class="login-form__input"
+                        placeholder="Username" 
+                        name="username" 
+                        type="text"
+                        id="username" 
+                    />
 
-                <input class="login-form__input" 
-                    placeholder="Email"
-                    name="email"
-                    type="email"
-                    id="email"
-                />
-                <input class="login-form__input" 
-                    placeholder="Password" 
-                    name="password"
-                    type="password"
-                    id="pwd"
-                />
-                <button class="login-form__button" type="submit">Register</button>
-                
-                <Link to='/register'>
-                <div class="login-form__links">
-                    <a class="login-form__link" href="/login">Login</a>
+                    <input class="login-form__input" 
+                        placeholder="Email"
+                        name="email"
+                        type="email"
+                        id="email"
+                    />
+                    <input class="login-form__input" 
+                        placeholder="Password" 
+                        name="password"
+                        type="password"
+                        id="pwd"
+                    />
+                    <button class="login-form__button" type="submit">Register</button>
+                    
+                    <Link to='/register'>
+                    <div class="login-form__links">
+                        <a class="login-form__link" href="/login">Login</a>
+                    </div>
+                    </Link>
                 </div>
-                </Link>
-            </div>
-        </form>
+            </form>
+        </div>
     </main>
     </body>
 </html>

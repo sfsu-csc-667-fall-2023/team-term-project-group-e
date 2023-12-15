@@ -19,7 +19,7 @@ h2 {
 }
 
 .column {
-  float: left;
+  float: middle;
   width: 50%;
   border: 1px solid black;
   border-radius: 5px;
