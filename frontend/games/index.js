@@ -3,7 +3,6 @@ import userSocketConfig from "./user_socket";
 
 const gameSocketId = document.querySelector("#game-socket-id").value;
 const userSocketId = document.querySelector("#user-socket-id").value;
-console.log({ gameSocketId });
 
 gameSocketConfig(gameSocketId);
 userSocketConfig(userSocketId);

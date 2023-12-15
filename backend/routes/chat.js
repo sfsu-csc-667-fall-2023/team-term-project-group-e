@@ -7,6 +7,8 @@ const handler = (request, response) => {
   const { message } = request.body;
   const { email } = request.session.user;
 
+  console.log({ id, message, email });
+
   const io = request.app.get("io");
 
   io.emit(`chat:message:${id === undefined ? 0 : id}`, {

@@ -13,6 +13,8 @@ router.get("/", (_request, response) => {
 router.post("/register", async (request, response) => {
   const {email, username, password} = request.body;
 
+  console.log({ email, username, password });
+
   const user_exists = await Users.email_exists(email);
   if(user_exists){
     response.redirect("/");

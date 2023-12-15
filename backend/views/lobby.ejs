@@ -22,14 +22,14 @@
           <section id="game-list">
             <ul class="game-list-ul">
               <% availableGames.forEach((game)=> { %>
-                <a href="/game/">Join <%= game.id%></a>
-              <% }); %>
+                <a href="/game/<%= game.id%>/join">Join <%= game.id%></a>
+                <% }); %>
             </ul>
           </section>
 
           <template id="join-game-entry">
             <li>
-              <a href="">hello</a>
+              <a href=""></a>
             </li>
           </template>
 

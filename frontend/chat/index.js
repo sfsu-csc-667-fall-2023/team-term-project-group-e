@@ -25,7 +25,8 @@ chatSocket.on(`chat:message:${roomId}`, ({ from, timestamp, message, hash}) => {
 document.querySelector("#message").addEventListener("keydown", event => {
   if(event.keyCode === 13){
     const message = event.target.value;
-    const url = event.target.dataset.url;
+
+    console.log({ message });
 
     fetch(`${document.location.pathname}/chat`, { 
       method: "post", 
