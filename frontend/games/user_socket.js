@@ -23,7 +23,6 @@ const userSocketConfig = (socketId) => {
           .querySelector("#card-template")
           .content.cloneNode(true);
         const form = template.querySelector("form");
-        const p = template.querySelector("p");
         const card_id = template.querySelector("#card_id");
         const color = template.querySelector("#color");
         const cardTop = template.querySelector("#card-top");
@@ -31,6 +30,7 @@ const userSocketConfig = (socketId) => {
         const cardBottom = template.querySelector("#card-bottom");
         const cardColor = template.querySelector("#card");
 
+        form.action = `/game/${gameId}/play`;
         if (card.value !== -1) {
           // p.innerText = card.color + " " + card.value;
           cardTop.innerText = card.value;

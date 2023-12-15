@@ -13,7 +13,7 @@ const sendGameState = async (io, gameId) => {
   const winnerId = await checkWinState(gameId);
   if(winnerId !== -1){
     const winner = await Games.getUsername(winnerId);
-    io.to(gameSocketId).CURRENTemit(GAME_CONSTANTS.WINNER, { winner });
+    io.to(gameSocketId).emit(GAME_CONSTANTS.WINNER, { winner });
     return;
   }
 
