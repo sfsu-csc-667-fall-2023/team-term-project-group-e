@@ -46,7 +46,7 @@ const gameSocketConfig = (socketId) => {
     // update the game log to communicate whose turn it is
     console.log({ event: GAME_CONSTANTS.USER_CURRENT, data });
     const p = document.createElement("p");
-    p.innerText = "It is " + data.currentPlayer.username + "'s turn.";
+    p.innerText = "> It is " + data.currentPlayer.username + "'s turn.";
     const log = document.getElementById("message-log");
     log.appendChild(p);
   });

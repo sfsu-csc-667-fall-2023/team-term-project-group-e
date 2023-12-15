@@ -24,13 +24,13 @@
 
     <div id="game-board">
       <div id="game">
-        <p>User Cards:</p>
+        <h3>User Cards:</h3>
         <div id="opponents">
         </div>
-        <p>Current Card:</p>
+        <h3>Current Card:</h3>
         <div id="current-card">
         </div>
-        <p>Your Cards (<%=user.username%>):</p>
+        <h3>Your Cards (<%=user.username%>):</h3>
         <form method="post" action="/game/<%=gameId%>/draw" id="draw-form">
           <input type="submit" value="Draw" />
         </form>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div id="message-log">
-        <p>Game Log</p>
+        <h3> Game Log</h3>
       </div>
     </div>
 
@@ -61,10 +61,17 @@
 </template>
 
 <template id="opponent-template">
-  <div class="opponent">
-    <p id="username"></p>
-    <p id="card-count"></p>
+  <div class="change-card">
+    <div id="card">
+      <div class="card-back" > <div class="card-center">UNO</div></div>
+    </div>
+    
+      <p id="username"></p>
+      <p id="card-count"></p>
   </div>
+ 
+ 
+  
 </template>
 
 <template id="card-template">

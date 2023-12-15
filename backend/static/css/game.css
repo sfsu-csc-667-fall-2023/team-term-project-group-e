@@ -43,6 +43,7 @@
   flex-direction: row;
   /* border: 1px black solid; */
   min-height: 7em;
+  overflow-x: auto;
 }
 
 /* .card {
@@ -74,6 +75,8 @@
 
 #draw-form {
   display: none;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 #card-top, #card-bottom {
 	position: absolute;
@@ -111,11 +114,25 @@
 	text-align: center;
 	background-color: white;
 }
-#card-back {
+.card-center {
+	position: absolute;
+	top: 18px;
+	left: 8px;
+	right: 8px;
+	bottom: 18px;
+	line-height: 88px;
+	border-top-left-radius: 34px;
+	border-bottom-right-radius: 34px;
+	font-family: 'Fredoka One';
+	font-size: 56px;
+	text-align: center;
+	background-color: white;
+}
+.card-back {
   background-color: white;
 }
 
-#card-back .card-center {
+.card-back .card-center {
   background-color: #630050;
   color: white;
   left: 0px;
