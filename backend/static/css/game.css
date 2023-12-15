@@ -45,16 +45,290 @@
   min-height: 7em;
 }
 
-.card {
+/* .card {
   border: 1px black solid;
   width: 5em;
   height: 7em;
+} */
+#card {
+	width: 100px;
+	height: 140px;
+	border-radius: 4px;
+  border: 1px black solid;
+  box-shadow: -1px 1px 3px rgba(0,0,0,0.5);
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 8px solid white;
+	position: relative;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .change-card {
   border: 1px black solid;
+  
 }
 
 #draw-form {
   display: none;
 }
+#card-top, #card-bottom {
+	position: absolute;
+	color: white;
+	font-family: 'Fredoka One';
+	font-size: 16px;
+}
+
+#card-top {
+	top: 4px;
+	left: 8px;
+}
+
+#card-bottom {
+	bottom: 4px;
+	right: 8px;
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+#card-center {
+	position: absolute;
+	top: 18px;
+	left: 8px;
+	right: 8px;
+	bottom: 18px;
+	line-height: 88px;
+	border-top-left-radius: 34px;
+	border-bottom-right-radius: 34px;
+	font-family: 'Fredoka One';
+	font-size: 56px;
+	text-align: center;
+	background-color: white;
+}
+#card-back {
+  background-color: white;
+}
+
+#card-back .card-center {
+  background-color: #630050;
+  color: white;
+  left: 0px;
+  right: 0px;
+  top: 10px;
+  bottom: 10px;
+  font-size: 32px;
+  line-height: 108px;
+}
+
+
+.card-red {
+	background-color: #DD1F06;
+}
+
+	.card-red .card-center {
+		color: #DD1F06;
+	}
+
+.card-yellow {
+	background-color: #DDBF06;
+}
+
+	.card-yellow .card-center {
+		color: #DDBF06;
+	}
+
+.card-green {
+	background-color: #05A52F;
+}
+
+	.card-green .card-center {
+		color: #05A52F;
+	}
+
+.card-blue {
+	background-color: #3D1397;
+}
+
+	.card-blue .card-center {
+		color: #3D1397;
+	}
+
+@-moz-keyframes wild-background {
+	0% {
+		background-color: #DD1F06;
+	}
+
+	25% {
+		background-color: #DDBF06;
+	}
+
+	50% {
+		background-color: #05A52F;
+	}
+
+	75% {
+		background-color: #3D1397;
+	}
+
+	100% {
+		background-color: #DD1F06;
+	}
+}
+
+@-webkit-keyframes wild-background {
+	0% {
+		background-color: #DD1F06;
+	}
+
+	25% {
+		background-color: #DDBF06;
+	}
+
+	50% {
+		background-color: #05A52F;
+	}
+
+	75% {
+		background-color: #3D1397;
+	}
+
+	100% {
+		background-color: #DD1F06;
+	}
+}
+
+@keyframes wild-background {
+	0% {
+		background-color: #DD1F06;
+	}
+
+	25% {
+		background-color: #DDBF06;
+	}
+
+	50% {
+		background-color: #05A52F;
+	}
+
+	75% {
+		background-color: #3D1397;
+	}
+
+	100% {
+		background-color: #DD1F06;
+	}
+}
+
+@-moz-keyframes wild-foreground {
+	0% {
+		color: #DD1F06;
+	}
+
+	25% {
+		color: #DDBF06;
+	}
+
+	50% {
+		color: #05A52F;
+	}
+
+	75% {
+		color: #3D1397;
+	}
+
+	100% {
+		color: #DD1F06;
+	}
+}
+
+@-webkit-keyframes wild-foreground {
+	0% {
+		color: #DD1F06;
+	}
+
+	25% {
+		color: #DDBF06;
+	}
+
+	50% {
+		color: #05A52F;
+	}
+
+	75% {
+		color: #3D1397;
+	}
+
+	100% {
+		color: #DD1F06;
+	}
+}
+
+@keyframes wild-foreground {
+	0% {
+		color: #DD1F06;
+	}
+
+	25% {
+		color: #DDBF06;
+	}
+
+	50% {
+		color: #05A52F;
+	}
+
+	75% {
+		color: #3D1397;
+	}
+
+	100% {
+		color: #DD1F06;
+	}
+}
+
+.card-wild {
+	background-color: gray;
+	-moz-animation: wild-background 4s infinite;
+	-o-animation: wild-background 4s infinite;
+	-webkit-animation: wild-background 4s infinite;
+	animation: wild-background 4s infinite;
+}
+
+	.card-wild #card-center {
+		color: gray;
+		-moz-animation: wild-foreground 4s infinite;
+		-o-animation: wild-foreground 4s infinite;
+		-webkit-animation: wild-foreground 4s infinite;
+		animation: wild-foreground 4s infinite;
+	}
+  #card-template {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%; /* Ensures the container takes full height */
+  }
+  
+  .change-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%; /* Ensures the container takes full height */
+  }
+  
+  
+  
+  .user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Add any additional styling as needed */
+  

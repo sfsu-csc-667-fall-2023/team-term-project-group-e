@@ -49,7 +49,7 @@
 </body>
 
 <template id="board-card-template">
-  <div class="card">
+  <div id="card">
     <p></p>
   </div>
 </template>
@@ -62,18 +62,30 @@
 </template>
 
 <template id="card-template">
-  <div class="card">
-    <form class="user-card" method="post">
-      <p></p>
-      <input type="hidden" id="card_id">
-      <input type="hidden" id="color" />
-      <input type="submit" value="Play" />
-    </form>
+  <div class="change-card">
+    <div id="card">
+      <div id="card-top"></div>
+      <div id="card-center"></div>
+      <div id="card-bottom"></div>
+    </div>
+      <form class="user-card" method="post">
+        <p></p>
+        <input type="hidden" id="card_id">
+        <input type="hidden" id="color" />
+        <input type="submit" value="Play" />
+      </form>
   </div>
+ 
+ 
 </template>
 
 <template id="card-template2">
   <div class="change-card">
+    <div id="card">
+      <div id="card-top"></div>
+      <div id="card-center"></div>
+      <div id="card-bottom"></div>
+    </div>
     <p></p>
     <form class="user-card" method="post">
       <input type="hidden" id="card_id" />

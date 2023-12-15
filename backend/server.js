@@ -9,10 +9,10 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const { Server } = require("socket.io");
 
-const { 
-  viewSessionData, 
-  sessionLocals, 
-  isAuthenticated
+const {
+  viewSessionData,
+  sessionLocals,
+  isAuthenticated,
 } = require("./middleware");
 
 const app = express();
@@ -20,9 +20,11 @@ const httpServer = createServer(app);
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -31,11 +33,11 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "static")));
 
 const PORT = process.env.PORT || 3000;
-  
+
 // Live reload configuration (for only in development)
 if (process.env.NODE_ENV === "development") {
   require("dotenv").config();
-  
+
   const livereload = require("livereload");
   const connectLiveReload = require("connect-livereload");
 
@@ -51,21 +53,22 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const sessionMiddleware = session({
-  store: new (require('connect-pg-simple')(session))({
+  store: new (require("connect-pg-simple")(session))({
     createTableIfMissing: true,
   }),
   secret: process.env.SESSION_SECRET,
   resave: false,
-  cookie: { secure: process.env.NODE_ENV !== "development" }
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV !== "development" },
 });
 
 app.use(sessionMiddleware);
 
-if(process.env.NODE_ENV === "development"){
+if (process.env.NODE_ENV === "development") {
   app.use(viewSessionData);
 }
 
-app.use(sessionLocals)
+app.use(sessionLocals);
 const io = new Server(httpServer);
 io.engine.use(sessionMiddleware);
 app.set("io", io);
