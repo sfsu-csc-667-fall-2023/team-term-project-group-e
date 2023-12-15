@@ -24,13 +24,13 @@
 
     <div id="game-board">
       <div id="game">
-        <p>User Cards:</p>
+        <h3>User Cards:</h3>
         <div id="opponents">
         </div>
-        <p>Current Card:</p>
+        <h3>Current Card:</h3>
         <div id="current-card">
         </div>
-        <p>Your Cards (<%=user.username%>):</p>
+        <h3>Your Cards (<%=user.username%>):</h3>
         <form method="post" action="/game/<%=gameId%>/draw" id="draw-form">
           <input type="submit" value="Draw" />
         </form>
@@ -48,31 +48,58 @@
 </body>
 
 <template id="board-card-template">
-  <div class="card">
-    <p></p>
+  <div class="change-card">
+    <div id="card">
+      <div id="card-top"></div>
+      <div id="card-center"></div>
+      <div id="card-bottom"></div>
+    </div>
+
   </div>
+
 </template>
 
 <template id="opponent-template">
-  <div class="opponent">
+  <div class="change-card">
+    <div id="card">
+      <div class="card-back">
+        <div class="card-center">UNO</div>
+      </div>
+    </div>
+
     <p id="username"></p>
     <p id="card-count"></p>
   </div>
+
+
+
 </template>
 
 <template id="card-template">
-  <div class="card">
+  <div class="change-card">
+    <div id="card">
+      <div id="card-top"></div>
+      <div id="card-center"></div>
+      <div id="card-bottom"></div>
+    </div>
     <form class="user-card" method="post">
       <p></p>
       <input type="hidden" id="card_id">
       <input type="hidden" id="color" />
-      <input type="submit" id="submit" value="Play" />
+      <input type="submit" value="Play" />
     </form>
   </div>
+
+
 </template>
 
 <template id="card-template2">
   <div class="change-card">
+    <div id="card">
+      <div id="card-top"></div>
+      <div id="card-center"></div>
+      <div id="card-bottom"></div>
+    </div>
     <p></p>
     <div class="grid">
       <form class="user-card red" method="post">
